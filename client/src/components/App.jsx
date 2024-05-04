@@ -1,8 +1,13 @@
 import React from 'react'
+import Nav from './Nav'
+import ProfilePage from './ProfilePage'
 
 function App() {
   return (
-    <div>App</div>
+    <div>
+        <Nav />
+        <ProfilePage />
+    </div>
   )
 }
 
