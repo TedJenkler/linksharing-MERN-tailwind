@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-/* import { loginUser } from '../features/user/userSlice'; */
+import { loginUser } from '../features/user/userSlice';
 import logo from "../assets/logo.png"
 
 function Login() {
@@ -12,11 +12,11 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        /*try {
+        try {
             await dispatch(loginUser(formData));
         } catch (error) {
             console.error('Login error:', error);
-        }*/
+        }
     };
 
     const handleChange = (e) => {
