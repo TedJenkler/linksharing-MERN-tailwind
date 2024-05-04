@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/user/userSlice';
 import logo from "../assets/logo.png"
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -15,6 +17,7 @@ function Login() {
         e.preventDefault();
         try {
             await dispatch(loginUser(formData));
+            navigate('/app');
         } catch (error) {
             console.error('Login error:', error);
         }

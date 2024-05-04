@@ -44,6 +44,13 @@ export const loginUser = createAsyncThunk(
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Failed to login')
             }
+
+            // Get the JWT token from the response
+            const { token } = await response.json();
+
+            // Save the token in local storage
+            localStorage.setItem('token', token);
+
             thunkAPI.dispatch(registerSuccess());
             console.log("logged in")
             return await response.json();

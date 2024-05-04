@@ -7,8 +7,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Login from './components/login.jsx'
-import Register from './components/register.jsx'
+import Login from './components/Login.jsx'
+import Register from './components/Register.jsx'
+import App from './components/App.jsx'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/app",
+    element: <App />,
   },
 ])
 
