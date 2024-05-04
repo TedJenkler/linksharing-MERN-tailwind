@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/user/userSlice';
 import logo from "../assets/logo.png"
@@ -8,6 +8,16 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/app');
+        } else {
+            navigate('/login');
+        }
+    }, [navigate])
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
