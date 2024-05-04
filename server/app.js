@@ -20,6 +20,10 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error('Error connecting to MongoDB:', error);
 });
 
+const userRoutes = require('./routes/userRoutes');
+
+app.use('/users', userRoutes);
+
 app.get('/', (req, res) => {
     res.send('Hello  World');
 });
