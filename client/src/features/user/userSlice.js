@@ -1,30 +1,55 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const registerUser = createAsyncThunk(
+    'user/register',
+    async (userData, thunkAPI) => {
+        try {
+            thunkAPI.dispatch(registerStart());
+
+            const response = await fetch('http://localhost:2000/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+            if(!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to register user')
+            }
+            thunkAPI.dispatch(registerSuccess());
+            return await response.json();
+        } catch (error) {
+            thunkAPI.dispatch(registerFailure(error.message));
+            throw error;
+        }
+    }
+)
 
 const initialState = {
-  value: 0,
-}
+    loading: false,
+    error: null,
+  };
 
-export const counterSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
+    registerStart(state) {
+        state.loading = true;
+        state.error = null;
     },
-    decrement: (state) => {
-      state.value -= 1
+    registerSuccess(state) {
+        state.loading = false;
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+    registerFailure(state, action) {
+        state.loading = false;
+        state.error = action.payload;
     },
   },
 })
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = userSlice.actions
+export const { registerStart, registerSuccess, registerFailure } = userSlice.actions
 
 export default userSlice.reducer
