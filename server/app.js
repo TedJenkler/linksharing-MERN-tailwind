@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 // Load environment variables
 dotenv.config();
@@ -10,6 +11,11 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
+// Allow requests from both http://localhost:3000 and http://localhost:3001
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://localhost:3001']
+  }));
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
