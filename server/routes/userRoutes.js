@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../schema/userSchema');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 router.post('/register', async (req, res) => {
+    const { firstname, lastname, email, password } = req.body;
     try {
-        const { firstname, lastname, email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         const newUser = new User({
             firstname,
             lastname,
             email,
-            password
+            password: hashedPassword
         });
 
         const savedUser = await newUser.save();
