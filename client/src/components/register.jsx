@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../features/user/userSlice';
 import logo from "../assets/logo.png";
+import { Link } from 'react-router-dom';
 
 function Register() {
     const dispatch = useDispatch();
@@ -77,7 +78,7 @@ function Register() {
             </div>
             <div className='flex flex-col items-center'>
                 <p className='text-base text-grey'>Already have an account?</p>
-                <p className='text-base text-purple'>Login</p>
+                <Link to="/login" className='text-base text-purple'>Login</Link>
             </div>
         </form>
     );
