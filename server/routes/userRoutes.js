@@ -26,8 +26,27 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.get('/', (req, res) => {
-    res.send('Test')
-})
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
+
+        if(!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if(passwordMatch) {
+            return res.status(200).json({ message: 'Login successful' });
+        } else {
+            return res.status(401).json({ error: 'Invalid password' });
+        }
+
+    } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 module.exports = router;
