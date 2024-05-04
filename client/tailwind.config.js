@@ -5,7 +5,18 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        darkgrey: "#333333",
+        grey: "#737373",
+        borders: "#D9D9D9",
+        purple: "#633CFF",
+      },
+      backgroundImage: {
+        'iconemail': "url('/src/assets/iconmail.png')",
+        'iconpass': "url('/src/assets/iconpassword.png')",
+      },
+    },
   },
   plugins: [],
 }
