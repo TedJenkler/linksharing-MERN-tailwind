@@ -1,0 +1,37 @@
+# Node.js dependencies
+node_modules/
+
+# Compiled files
+dist/
+build/
+*.bundle.js
+*.bundle.css
+
+# Logs and debugging files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+test/unit/coverage/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Miscellaneous
+*.cache
+*.bak
+*.lock
