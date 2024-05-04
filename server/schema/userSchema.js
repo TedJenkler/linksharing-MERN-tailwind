@@ -19,7 +19,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        img: String,
+        img: {
+            type: String,
+            default: "",
+        },
         links: {
             type: [String],
             default: []
