@@ -61,6 +61,37 @@ export const loginUser = createAsyncThunk(
     }
 );
 
+export const updateUser = createAsyncThunk(
+    'user/update',
+    async (userData, thunkAPI) => {
+        try {
+            thunkAPI.dispatch(updateStart());
+
+            const token = localStorage.getItem('token');
+
+            const response = await fetch('http://localhost:2000/users/profile/update', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if(!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to update user')
+            }
+
+            const updateUser = await response.json()
+            return updateUser;
+
+        }catch (error) {
+            return thunkAPI.rejectWithValue({ error: error.message });
+        }
+    }
+)
+
 const initialState = {
     loading: false,
     error: null,
@@ -92,9 +123,20 @@ export const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
     },
+    updateStart(state) {
+        state.loading = true;
+        state.error = null;
+    },
+    updateSuccess(state) {
+        state.loading = false;
+    },
+    updateFailure(state, action) {
+        state.loading = false;
+        state.error = action.payload;
+    }
   },
 })
 
-export const { registerStart, registerSuccess, registerFailure, loginStart, loginSuccess, loginFailure } = userSlice.actions
+export const { registerStart, registerSuccess, registerFailure, loginStart, loginSuccess, loginFailure, updateStart, updateSuccess, updateFailure } = userSlice.actions
 
 export default userSlice.reducer
