@@ -1,8 +1,10 @@
     const express = require('express');
     const router = express.Router();
     const jwt = require('jsonwebtoken');
-    const User = require('../schema/userSchema');
     const bcrypt = require('bcrypt');
+    const dotenv = require('dotenv');
+    dotenv.config();
+    const User = require('../schema/userSchema');
     const saltRounds = 10;
     const secretKey = process.env.JWT_SECRET_KEY;
 
@@ -51,20 +53,28 @@
             res.status(500).json({ error: 'Internal server error' });
         }
     });
-    // implement authentication instead of email later with token
+
     router.put("/profile/update", async (req, res) => {
         try {
-            const { oldEmail, firstname, lastname, newEmail } = req.body;
+            // Extract the token from the request header
+            const token = req.headers.authorization.split(" ")[1];
 
-            const user = await User.findOne({ email: oldEmail });
+            // Verify and decode the token to get the user information
+            const decodedToken = jwt.verify(token, secretKey);
+            const userId = decodedToken.userId;
+
+            // Find the user by ID
+            const user = await User.findById(userId);
 
             if (!user) {
                 return res.status(404).json({ error: "User not found" });
             }
 
+            // Update user details
+            const { firstname, lastname, email } = req.body;
             user.firstname = firstname;
             user.lastname = lastname;
-            user.email = newEmail;
+            user.email = email;
 
             const updatedUser = await user.save();
 
@@ -72,6 +82,25 @@
         } catch (error) {
             console.error("Error updating user profile:", error);
             res.status(500).json({ error: "Internal server error" });
+        }
+    });
+
+    router.delete("/profile/delete", async (req, res) => {
+        try {
+            const token = req.headers.authorization.split(" ")[1];
+
+            const decodedToken = jwt.verify(token, secretKey);
+            const userId = decodedToken.userId;
+
+            const deletedUser = await User.findByIdAndDelete(userId);
+
+            if(!deletedUser){
+               return res.status(404).json({ error: "User not found" })
+            }
+            res.status(200).json({ message: "User deleted successfully" })
+        }catch (error) {
+            console.error("Error deleting user", error)
+            res.status(500).json({ message: "Internal server error" })
         }
     })
 
