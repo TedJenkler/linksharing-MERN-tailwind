@@ -2,10 +2,13 @@ import React from 'react'
 import linkempty from "../assets/emptylink.png"
 import { useState } from 'react'
 import drag from "../assets/drag.png"
+import { useDispatch } from 'react-redux'
+import { addLinks } from '../features/links/linksSlice'
 
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([])
     console.log(linkForm)
+    const dispatch = useDispatch();
 
     const handleAdd = () => {
         setLinkForm(prevState => [
@@ -19,6 +22,16 @@ function AddLinkPage() {
         const newLinkForm = [...linkForm];
         newLinkForm[index][name] = value;
         setLinkForm(newLinkForm);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await dispatch(addLinks(linkForm));
+            setLinkForm([]);
+        } catch (error) {
+            console.error('AddLink error:', error);
+        }
     };
 
   return (
@@ -55,7 +68,7 @@ function AddLinkPage() {
             )
         }): null}
         <div className='border-t border-borders py-4'>
-            <button className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6'>Save</button>
+            <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6'>Save</button>
         </div>
     </section>
   )
