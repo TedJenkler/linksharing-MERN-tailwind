@@ -7,44 +7,50 @@ const Links = require('../schema/linkSchema');
 const secretKey = process.env.JWT_SECRET_KEY;
 
 router.get('/getAll', async (req, res) => {
-    try{
+    try {
+        const token = req.headers.authorization.split(" ")[1];
 
-    }catch (error) {
+        const decodedToken = jwt.verify(token, secretKey);
+        const userId = decodedToken.userId;
 
+        const userLinks = await Links.findOne({ userId });
+
+        if (!userLinks) {
+            return res.status(404).json({ message: 'No links found for this user' });
+        } else {
+            res.status(200).json(userLinks);
+        }
+    } catch (error) {
+        console.error('Error fetching user links:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-})
+});
 
 router.put('/addLink', async (req, res) => {
-    const {title, url} = req.body;
+    const { links } = req.body;
 
     const token = req.headers.authorization.split(" ")[1];
-    let decodedToken;
-    try {
-        decodedToken = jwt.verify(token, secretKey);
-    }catch (error) {
-        return res.status(401).json({ error: 'Invalid or expired token' });
-    }
-    const userId = decodedToken.userId
+    const decodedToken = jwt.verify(token, secretKey);
+    const userId = decodedToken.userId;
 
     try {
         let userLinks = await Links.findOne({ userId });
 
-        if(userLinks){
-            userLinks.links.push({ title, url });
-            await userLinks.save();
-        } else {
+        if (!userLinks) {
             userLinks = new Links({
                 userId,
-                links: [{ title, url }]
-            })
-            await userLinks.save()
+                links
+            });
+        } else {
+            userLinks.links.push(...links);
         }
 
-        res.status(201).json(userLinks)
+        const savedList = await userLinks.save();
+        res.status(201).json(savedList);
     } catch (error) {
-        console.error('Error adding new link:', error);
+        console.error('Error adding new link list:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-})
+});
 
-module.exports = router
+module.exports = router;
