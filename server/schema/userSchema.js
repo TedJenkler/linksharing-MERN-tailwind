@@ -24,8 +24,7 @@ const userSchema = new mongoose.Schema(
             default: "",
         },
         links: {
-            type: [String],
-            default: []
+            type: mongoose.Schema.Types.ObjectId, ref: 'Links'
         }
     }
 );
