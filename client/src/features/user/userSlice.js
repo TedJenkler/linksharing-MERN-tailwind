@@ -45,10 +45,8 @@ export const loginUser = createAsyncThunk(
                 throw new Error(errorData.message || 'Failed to login')
             }
 
-            // Get the JWT token from the response
             const { token } = await response.json();
 
-            // Save the token in local storage
             localStorage.setItem('token', token);
 
             thunkAPI.dispatch(registerSuccess());
@@ -73,7 +71,7 @@ export const updateUser = createAsyncThunk(
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(userData),
             });

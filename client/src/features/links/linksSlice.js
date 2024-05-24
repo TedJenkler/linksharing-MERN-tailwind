@@ -1,5 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+export const fetchLinks = createAsyncThunk(
+    'links/fetchLinks',
+    async (_, thunkAPI) => {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:2000/links/getAll', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to fetch links');
+        }
+        const data = await response.json();
+        console.log('Fetched links data:', data.links);
+        return data.links;
+    }
+);
+
 export const addLinks = createAsyncThunk(
     'links/addLink',
     async (linkData, thunkAPI) => {
@@ -10,9 +29,9 @@ export const addLinks = createAsyncThunk(
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+                    'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ links: linkData }) // Ensure the linkData is passed correctly
+                body: JSON.stringify({ links: linkData })
             });
             if (!response.ok) {
                 const errorData = await response.json();
@@ -29,6 +48,7 @@ export const addLinks = createAsyncThunk(
 );
 
 const initialState = {
+    links: [],
     loading: false,
     error: null,
 };
