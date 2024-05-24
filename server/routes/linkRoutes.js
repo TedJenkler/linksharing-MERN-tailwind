@@ -29,38 +29,21 @@ router.get('/getAll', async (req, res) => {
 
 router.put('/addLink', async (req, res) => {
     const { links } = req.body;
-
-    if (!Array.isArray(links)) {
-        return res.status(400).json({ error: 'Invalid links array' });
-    }
-
-    const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, secretKey);
-    const userId = decodedToken.userId;
+    const token = req.headers.authorization?.split(' ')[1];
 
     try {
-        let userLinks = await Links.findOne({ userId });
+        const decodedToken = jwt.verify(token, secretKey);
+        const userId = decodedToken.userId;
 
-        if (!userLinks) {
-            userLinks = new Links({
-                userId,
-                links
-            });
-        } else {
-            links.forEach(newLink => {
-                const existingLink = userLinks.links.find(link => link.title === newLink.title);
-                if (existingLink) {
-                    existingLink.url = newLink.url;
-                } else {
-                    userLinks.links.push(newLink);
-                }
-            });
-        }
+        let userLinks = await Links.findOneAndUpdate(
+            { userId },
+            { links },
+            { upsert: true, new: true }
+        );
 
-        const savedList = await userLinks.save();
-        res.status(201).json(savedList);
+        res.status(200).json(userLinks);
     } catch (error) {
-        console.error('Error adding new link list:', error);
+        console.error('Error updating links:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
