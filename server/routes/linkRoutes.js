@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const Links = require('../schema/linkSchema');
 const secretKey = process.env.JWT_SECRET_KEY;
+const mongoose = require('mongoose');
 
 router.get('/getAll', async (req, res) => {
     try {
@@ -47,9 +48,9 @@ router.put('/addLink', async (req, res) => {
             });
         } else {
             links.forEach(newLink => {
-                const existingLinkIndex = userLinks.links.findIndex(link => link.platform === newLink.platform);
-                if (existingLinkIndex !== -1) {
-                    console.error(`Platform "${newLink.platform}" already exists.`);
+                const existingLink = userLinks.links.find(link => link.title === newLink.title);
+                if (existingLink) {
+                    existingLink.url = newLink.url;
                 } else {
                     userLinks.links.push(newLink);
                 }
