@@ -1,37 +1,34 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import { store } from './app/store'
-import { Provider } from 'react-redux'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Login from './components/Login.jsx'
-import Register from './components/Register.jsx'
-import App from './components/App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client'; // Import createRoot from react-dom/client
+import './index.css';
+import { store } from './app/store';
+import { Provider } from 'react-redux';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Login from './components/Login.jsx';
+import Register from './components/Register.jsx';
+import App from './components/App.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Login />,
   },
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
   {
-    path: "/register",
+    path: '/register',
     element: <Register />,
   },
   {
-    path: "/app",
+    path: '/app',
     element: <App />,
   },
-])
+]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <RouterProvider router={router} />
+  </Provider>
 );
