@@ -38,6 +38,12 @@ function AddLinkPage() {
         setLinkForm(newLinkForm);
     };
 
+    const handleDelete = (index) => {
+        const newLinkForm = [...linkForm]
+        newLinkForm.splice(index, 1)
+        setLinkForm(newLinkForm);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -76,14 +82,23 @@ function AddLinkPage() {
                             <img src={drag} alt='drag' />
                             <h3 className='text-base text-grey font-bold'>Link #{index + 1}</h3>
                         </div>
-                        <p className='text-base text-grey'>Remove</p>
+                        <p onClick={() => handleDelete(index)} className='text-base text-grey'>Remove</p>
                     </div>
                     <div className='flex flex-col'>
                         <label className='text-xs text-darkgrey mb-1'>Platform</label>
                         {console.log('form.title:', form.title)}
                         <select name='title' value={form.title || 'github'} onChange={(e) => handleChange(index, e)}>
-                            <option value='github'>Github</option>
+                            <option value='github'>GitHub</option>
+                            <option value='stackoverflow'>Stack Overflow</option>
+                            <option value='gitlab'>GitLab</option>
+                            <option value='bitbucket'>Bitbucket</option>
                             <option value='facebook'>Facebook</option>
+                            <option value='linkedin'>LinkedIn</option>
+                            <option value='twitter'>Twitter</option>
+                            <option value='instagram'>Instagram</option>
+                            <option value='reddit'>Reddit</option>
+                            <option value='dev'>DEV Community</option>
+                            <option value='medium'>Medium</option>
                         </select>
                     </div>
                     <div className='flex flex-col'>
