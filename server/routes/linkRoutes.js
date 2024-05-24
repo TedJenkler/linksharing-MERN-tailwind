@@ -29,6 +29,10 @@ router.get('/getAll', async (req, res) => {
 router.put('/addLink', async (req, res) => {
     const { links } = req.body;
 
+    if (!Array.isArray(links)) {
+        return res.status(400).json({ error: 'Invalid links array' });
+    }
+
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, secretKey);
     const userId = decodedToken.userId;
@@ -42,7 +46,14 @@ router.put('/addLink', async (req, res) => {
                 links
             });
         } else {
-            userLinks.links.push(...links);
+            links.forEach(newLink => {
+                const existingLinkIndex = userLinks.links.findIndex(link => link.platform === newLink.platform);
+                if (existingLinkIndex !== -1) {
+                    console.error(`Platform "${newLink.platform}" already exists.`);
+                } else {
+                    userLinks.links.push(newLink);
+                }
+            });
         }
 
         const savedList = await userLinks.save();
