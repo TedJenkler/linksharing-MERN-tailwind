@@ -7,9 +7,9 @@ import { addLinks, fetchLinks } from '../features/links/linksSlice';
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([]);
     const dispatch = useDispatch();
-    const linksData = useSelector(state => state.links.links);
     const loading = useSelector(state => state.links.loading);
     const error = useSelector(state => state.links.error);
+    console.log(linkForm)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +27,7 @@ function AddLinkPage() {
     const handleAdd = () => {
         setLinkForm(prevState => [
             ...prevState,
-            { title: '', url: '' }
+            { title: 'github', url: '' }
         ]);
     };
 
@@ -74,13 +74,17 @@ function AddLinkPage() {
                     <div className='flex justify-between mb-3'>
                         <div className='flex items-center gap-2'>
                             <img src={drag} alt='drag' />
-                            <h3 className='text-base text-grey font-bold'>Link</h3>
+                            <h3 className='text-base text-grey font-bold'>Link #{index + 1}</h3>
                         </div>
                         <p className='text-base text-grey'>Remove</p>
                     </div>
                     <div className='flex flex-col'>
                         <label className='text-xs text-darkgrey mb-1'>Platform</label>
-                        <input type='text' name='title' value={form.title} onChange={(e) => handleChange(index, e)} className='mb-3 rounded-lg px-4' />
+                        {console.log('form.title:', form.title)}
+                        <select name='title' value={form.title || 'github'} onChange={(e) => handleChange(index, e)}>
+                            <option value='github'>Github</option>
+                            <option value='facebook'>Facebook</option>
+                        </select>
                     </div>
                     <div className='flex flex-col'>
                         <label className='text-xs text-darkgrey mb-1'>Link</label>
