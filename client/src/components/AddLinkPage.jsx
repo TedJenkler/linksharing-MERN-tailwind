@@ -27,7 +27,7 @@ function AddLinkPage() {
     const handleAdd = () => {
         setLinkForm(prevState => [
             ...prevState,
-            { title: 'github', url: '' }
+            { title: 'GitHub', url: '' }
         ]);
     };
 
@@ -88,17 +88,12 @@ function AddLinkPage() {
                         <label className='text-xs text-darkgrey mb-1'>Platform</label>
                         {console.log('form.title:', form.title)}
                         <select name='title' value={form.title || 'github'} onChange={(e) => handleChange(index, e)}>
-                            <option value='github'>GitHub</option>
-                            <option value='stackoverflow'>Stack Overflow</option>
-                            <option value='gitlab'>GitLab</option>
-                            <option value='bitbucket'>Bitbucket</option>
-                            <option value='facebook'>Facebook</option>
-                            <option value='linkedin'>LinkedIn</option>
-                            <option value='twitter'>Twitter</option>
-                            <option value='instagram'>Instagram</option>
-                            <option value='reddit'>Reddit</option>
-                            <option value='dev'>DEV Community</option>
-                            <option value='medium'>Medium</option>
+                            <option value='GitHub'>GitHub</option>
+                            <option value='YouTube'>YouTube</option>
+                            <option value='LinkedIn'>LinkedIn</option>
+                            <option value='Dev.to'>Dev.to</option>
+                            <option value='Codewars'>Codewars</option>
+                            <option value='freeCodeCamp'>freeCodeCamp</option>
                         </select>
                     </div>
                     <div className='flex flex-col'>

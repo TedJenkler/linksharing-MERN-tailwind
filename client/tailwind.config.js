@@ -12,7 +12,9 @@ export default {
         borders: "#D9D9D9",
         purple: "#633CFF",
         lightgrey: "#FAFAFA",
-        white: "#FFFFFF"
+        white: "#FFFFFF",
+        red: "#EE3939",
+        blue: "#2D68FF"
       },
       backgroundImage: {
         'iconemail': "url('/src/assets/iconmail.png')",

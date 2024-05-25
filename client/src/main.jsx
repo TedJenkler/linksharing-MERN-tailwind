@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import App from './components/App.jsx';
+import Preview from './components/Preview.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: '/app',
     element: <App />,
+  },
+  {
+    path: '/preview',
+    element: <Preview />,
   },
 ]);
 
