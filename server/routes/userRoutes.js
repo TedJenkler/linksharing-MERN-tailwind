@@ -7,6 +7,10 @@
     const User = require('../schema/userSchema');
     const saltRounds = 10;
     const secretKey = process.env.JWT_SECRET_KEY;
+    const multer = require('multer');
+
+    const storage = multer.memoryStorage(); // Store file in memory as buffer
+    const upload = multer({ storage: storage });
 
     router.get('/getUserByToken', async (req, res) => {
         try {
@@ -82,29 +86,40 @@
         }
     });
 
-    router.put("/profile/update", async (req, res) => {
-        try {
-            // Extract the token from the request header
-            const token = req.headers.authorization.split(" ")[1];
+    module.exports = router;
 
-            // Verify and decode the token to get the user information
+    router.put("/profile/update", upload.single('img'), async (req, res) => {
+        try {
+            const token = req.headers.authorization.split(" ")[1];
             const decodedToken = jwt.verify(token, secretKey);
             const userId = decodedToken.userId;
 
-            // Find the user by ID
             const user = await User.findById(userId);
 
             if (!user) {
                 return res.status(404).json({ error: "User not found" });
             }
 
-            // Update user details
             const { firstname, lastname, email } = req.body;
+            let img = null; // Default img value
+
+            if (req.file) {
+                console.log("File received:", req.file);
+                // If file was uploaded, read its contents and store as Buffer
+                img = {
+                    data: req.file.buffer, // Store file buffer directly
+                    contentType: req.file.mimetype
+                };
+            }
+
             user.firstname = firstname;
             user.lastname = lastname;
             user.email = email;
+            user.img = img;
 
             const updatedUser = await user.save();
+
+            console.log("User after update:", updatedUser);
 
             res.status(200).json(updatedUser);
         } catch (error) {
@@ -112,6 +127,7 @@
             res.status(500).json({ error: "Internal server error" });
         }
     });
+
 
     router.delete("/profile/delete", async (req, res) => {
         try {
