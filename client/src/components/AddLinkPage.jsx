@@ -102,7 +102,7 @@ function AddLinkPage() {
                 </form>
             ))}
             <div className='border-t border-borders py-4'>
-                <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6'>Save</button>
+                {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6' disabled={true}>Save</button> }
             </div>
         </section>
     );
