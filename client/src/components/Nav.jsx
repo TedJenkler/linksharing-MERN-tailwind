@@ -5,6 +5,7 @@ import linkactive from "../assets/linkactive.png"
 import profile from "../assets/profile.png"
 import profileactive from "../assets/profileactive.png"
 import preview from "../assets/preview.png"
+import { Link } from 'react-router-dom'
 
 function Nav({togglePage, setTogglePage}) {
   return (
@@ -14,7 +15,7 @@ function Nav({togglePage, setTogglePage}) {
             {togglePage === false ? <img src={link} alt='link' /> : <img src={linkactive} alt='link' />}
             {togglePage === false ? <img src={profileactive} alt='profile'/> : <img src={profile} alt='profile'/>}
         </div>
-        <img className='h-10' src={preview} alt='preview' />
+        <Link to="/preview"><img className='h-10' src={preview} alt='preview' /></Link>
     </nav>
   )
 }

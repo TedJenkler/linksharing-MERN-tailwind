@@ -2,26 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchLinks } from '../features/links/linksSlice';
 import { getUserByToken } from '../features/user/userSlice';
-import github from "../assets/github.png"
-import arrow from "../assets/arrowright.png"
+import github from "../assets/github.png";
+import arrow from "../assets/arrowright.png";
+import { Link } from 'react-router-dom';
 
 function Preview() {
     const dispatch = useDispatch();
     const [list, setList] = useState([]);
     const [user, setUser] = useState(null);
-    console.log(user)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await dispatch(getUserByToken());
-                setUser(res.payload)
-            }catch (error) {
+                setUser({ ...res.payload, img: `data:image/jpeg;base64,${arrayBufferToBase64(res.payload.img.data.data)}` });
+            } catch (error) {
                 console.error('Error fetching user:', error);
             }
         }
-        fetchData()
-    }, [dispatch])
+        fetchData();
+    }, [dispatch]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,16 +36,24 @@ function Preview() {
         fetchData();
     }, [dispatch]);
 
-    console.log(list);
+    // Function to convert ArrayBuffer to base64
+    const arrayBufferToBase64 = (buffer) => {
+        let binary = '';
+        const bytes = new Uint8Array(buffer);
+        for (let i = 0; i < bytes.byteLength; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    };
 
     return (
         <section className=''>
             <div className='flex justify-between px-6 py-4 gap-4 mb-20'>
-                <button className='bg-white border border-purple text-purple font-semibold text-base py-2 w-full rounded-lg'>Back to Editor</button>
+                <Link to="/app" className='bg-white text-center border item border-purple text-purple font-semibold text-base py-2 w-full rounded-lg'>Back to Editor</Link>
                 <button className='bg-purple text-white text-base font-semibold py-2 w-full rounded-lg'>Share Link</button>
             </div>
             <div className='flex items-center justify-center mb-6'>
-            <img className='h-24 w-24 rounded-full bg-black border-4 border-purple' src='' alt='profile' />
+                {user && user.img && <img className='h-24 w-24 rounded-full bg-black border-4 border-purple' src={user.img} alt='profile' />}
             </div>
             {user ? (
                 <div className='flex flex-col mb-14 items-center'>
@@ -56,7 +64,7 @@ function Preview() {
                 <p>Loading user information...</p>
             )}
             <div className='flex flex-col items-center px-20'>
-            {list.length > 0 ? (
+                {list.length > 0 ? (
                     list.map((item, index) => (
                         <a
                             className={`py-3 mb-5 w-full text-white rounded-lg ${item.title === "GitHub" ? 'bg-black' : item.title === "YouTube" ? 'bg-red' : item.title === "LinkedIn" ? 'bg-blue' : ''}`}

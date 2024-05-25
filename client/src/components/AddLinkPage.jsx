@@ -9,7 +9,6 @@ function AddLinkPage() {
     const dispatch = useDispatch();
     const loading = useSelector(state => state.links.loading);
     const error = useSelector(state => state.links.error);
-    console.log(linkForm)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -86,7 +85,6 @@ function AddLinkPage() {
                     </div>
                     <div className='flex flex-col'>
                         <label className='text-xs text-darkgrey mb-1'>Platform</label>
-                        {console.log('form.title:', form.title)}
                         <select name='title' value={form.title || 'github'} onChange={(e) => handleChange(index, e)}>
                             <option value='GitHub'>GitHub</option>
                             <option value='YouTube'>YouTube</option>
