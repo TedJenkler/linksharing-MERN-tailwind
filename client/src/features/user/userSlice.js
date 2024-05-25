@@ -1,6 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+export const getUserByToken = createAsyncThunk(
+    'user/getUserByToken',
+    async (_, thunkAPI) => {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:2000/users/getUserByToken', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to fetch user');
+        }
+        const data = await response.json();
+        console.log('Fetched user data:', data)
+        return data;
+    }
+);
+
 export const registerUser = createAsyncThunk(
     'user/register',
     async (userData, thunkAPI) => {
