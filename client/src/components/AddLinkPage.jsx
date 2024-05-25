@@ -3,6 +3,7 @@ import linkempty from "../assets/emptylink.png";
 import drag from "../assets/drag.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { addLinks, fetchLinks } from '../features/links/linksSlice';
+import github from "../assets/github.png"
 
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([]);
@@ -85,7 +86,7 @@ function AddLinkPage() {
                     </div>
                     <div className='flex flex-col'>
                         <label className='text-xs text-darkgrey mb-1'>Platform</label>
-                        <select name='title' value={form.title || 'github'} onChange={(e) => handleChange(index, e)}>
+                        <select className='outline outline-borders rounded-lg px-4 h-12 mb-3' name='title' value={form.title || 'github'} onChange={(e) => handleChange(index, e)}>
                             <option value='GitHub'>GitHub</option>
                             <option value='YouTube'>YouTube</option>
                             <option value='LinkedIn'>LinkedIn</option>
@@ -96,7 +97,7 @@ function AddLinkPage() {
                     </div>
                     <div className='flex flex-col'>
                         <label className='text-xs text-darkgrey mb-1'>Link</label>
-                        <input type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} className='mb-3 rounded-lg px-4' />
+                        <input className='outline outline-borders rounded-lg px-4 h-12 mb-3' type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} />
                     </div>
                 </form>
             ))}
