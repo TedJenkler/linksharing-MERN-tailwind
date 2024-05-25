@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../features/user/userSlice';
+import emptyimg from "../assets/emptyimg.png"
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -46,7 +47,8 @@ function ProfilePage() {
         <div className='p-5 mb-6 bg-lightgrey rounded-xl mx-6'>
           <p className='text-base text-grey mb-4'>Profile picture</p>
           <div className='mb-6'>
-            <input onChange={handleChange} name="img" type='file'></input>
+            <label htmlFor="fileInput"><img className='h-48 w-48' src={emptyimg} alt='emptyimg' /></label>
+            <input id='fileInput' className='hidden' onChange={handleChange} name="img" type='file'></input>
           </div>
           <p className='text-xs text-grey'>Image must be below 1024x1024px. Use PNG or JPG format.</p>
         </div>
