@@ -1,6 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+export const getUserByEmail = createAsyncThunk(
+    'user/getUserByEmail',
+    async (email, thunkAPI) => {
+      try {
+        const response = await fetch(`http://localhost:2000/users/getUserByEmail/${email}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to fetch user by email');
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        throw error;
+      }
+    }
+  );
+
 export const getUserByToken = createAsyncThunk(
   'user/getUserByToken',
   async (_, thunkAPI) => {
