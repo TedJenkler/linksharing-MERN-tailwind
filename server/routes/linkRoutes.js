@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const Links = require('../schema/linkSchema');
 const secretKey = process.env.JWT_SECRET_KEY;
-const mongoose = require('mongoose');
 
 router.get('/getAll', async (req, res) => {
     try {

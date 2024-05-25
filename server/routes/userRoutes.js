@@ -8,6 +8,34 @@
     const saltRounds = 10;
     const secretKey = process.env.JWT_SECRET_KEY;
 
+    router.get('/getUserByToken', async (req, res) => {
+        try {
+            const token = req.headers.authorization.split(" ")[1];
+
+            if (!token) {
+                return res.status(401).json({ error: "Token missing" });
+            }
+
+            const decodedToken = jwt.verify(token, secretKey);
+            const userId = decodedToken.userId;
+
+            const user = await User.findById(userId)
+
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+
+            res.status(200).json(user);
+        }catch (error) {
+            console.error("Error finding user", error)
+            res.status(500).json({ message: "Internal server error" })
+        }
+    })
+
+    router.get('/getUserByEmail', async (req, res) => {
+
+    })
+
     router.post('/register', async (req, res) => {
         const { firstname, lastname, email, password } = req.body;
         try {
