@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchLinks } from '../features/links/linksSlice';
 import { getUserByToken } from '../features/user/userSlice';
-import github from "../assets/github.png";
-import arrow from "../assets/arrowright.png";
+import githubIcon from "../assets/github.png";
+import youtubeIcon from "../assets/youtube.png";
+import linkedinIcon from "../assets/linkedin.png";
+import devtoIcon from "../assets/devto.png";
+import codewarsIcon from "../assets/codewars.png";
+import freecodecampIcon from "../assets/freecodecamp.png";
+import arrowIcon from "../assets/arrowright.png";
 import { Link } from 'react-router-dom';
 
 function Preview() {
@@ -65,21 +70,59 @@ function Preview() {
             )}
             <div className='flex flex-col items-center px-20'>
                 {list.length > 0 ? (
-                    list.map((item, index) => (
-                        <a
-                            className={`py-3 mb-5 w-full text-white rounded-lg ${item.title === "GitHub" ? 'bg-black' : item.title === "YouTube" ? 'bg-red' : item.title === "LinkedIn" ? 'bg-blue' : ''}`}
-                            href={item.url}
-                            key={index}
-                        >
-                            <div className='flex justify-between items-center px-4'>
-                                <div className='flex items-center gap-1'>
-                                    <img className='h-4 w-4' src={github} alt={item.title} />
-                                    {item.title}
-                                </div>
-                                <img className='h-4 w-4' src={arrow} alt='arrow' />
-                            </div>
-                        </a>
-                    ))
+                    list.map((item, index) => {
+                        let icon, bgColor;
+
+                        switch (item.title) {
+                            case "GitHub":
+                                icon = githubIcon;
+                                bgColor = 'bg-black';
+                                break;
+                            case "YouTube":
+                                icon = youtubeIcon;
+                                bgColor = 'bg-red';
+                                break;
+                            case "LinkedIn":
+                                icon = linkedinIcon;
+                                bgColor = 'bg-blue';
+                                break;
+                            case "Dev.to":
+                                icon = devtoIcon;
+                                bgColor = 'bg-darkgrey';
+                                break;
+                            case "Codewars":
+                                icon = codewarsIcon;
+                                bgColor = 'bg-wine';
+                                break;
+                            case "freeCodeCamp":
+                                icon = freecodecampIcon;
+                                bgColor = 'bg-darkpurple';
+                                break;
+                            default:
+                                icon = null;
+                                bgColor = '';
+                                break;
+                        }
+
+                        if (icon) {
+                            return (
+                                <a
+                                    className={`py-3 mb-5 w-full text-white rounded-lg ${bgColor}`}
+                                    href={item.url}
+                                    key={index}
+                                >
+                                    <div className='flex justify-between items-center px-4'>
+                                        <div className='flex items-center gap-1'>
+                                            <img className='h-4 w-4' src={icon} alt={item.title} />
+                                            {item.title}
+                                        </div>
+                                        <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                    </div>
+                                </a>
+                            );
+                        }
+                        return null;
+                    })
                 ) : (
                     <p>Loading links...</p>
                 )}
