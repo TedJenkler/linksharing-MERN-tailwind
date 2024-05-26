@@ -53,79 +53,83 @@ function Preview() {
 
     return (
         <section className=''>
-            <div className='flex justify-between px-6 py-4 gap-4 mb-20'>
-                <Link to="/app" className='bg-white text-center border item border-purple text-purple font-semibold text-base py-2 w-full rounded-lg'>Back to Editor</Link>
-                <button className='bg-purple text-white text-base font-semibold py-2 w-full rounded-lg'>Share Link</button>
-            </div>
-            <div className='flex items-center justify-center mb-6'>
-                {user && user.img && <img className='h-24 w-24 rounded-full bg-black border-4 border-purple' src={user.img} alt='profile' />}
-            </div>
-            {user ? (
-                <div className='flex flex-col mb-14 items-center'>
-                    <h1 className='mb-2 text-3xl font-bold text-darkgrey'>{user.firstname} {user.lastname}</h1>
-                    <p className='text-base text-grey'>{user.email}</p>
+            <div className='md:bg-purple md:rounded-b-[32px] md:pt-6'>
+                <div className='flex justify-between px-6 py-4 gap-4 mb-20 md:bg-white md:mx-6 md:mb-6 md:rounded-xl'>
+                    <Link to="/app" className='bg-white text-center border item border-purple text-purple font-semibold text-base py-2 w-full rounded-lg md:w-1/4'>Back to Editor</Link>
+                    <button className='bg-purple text-white text-base font-semibold py-2 w-full rounded-lg md:w-1/4'>Share Link</button>
                 </div>
-            ) : (
-                <p>Loading user information...</p>
-            )}
-            <div className='flex flex-col items-center px-20'>
-                {list.length > 0 ? (
-                    list.map((item, index) => {
-                        let icon, bgColor;
-
-                        switch (item.title) {
-                            case "GitHub":
-                                icon = githubIcon;
-                                bgColor = 'bg-black';
-                                break;
-                            case "YouTube":
-                                icon = youtubeIcon;
-                                bgColor = 'bg-red';
-                                break;
-                            case "LinkedIn":
-                                icon = linkedinIcon;
-                                bgColor = 'bg-blue';
-                                break;
-                            case "Dev.to":
-                                icon = devtoIcon;
-                                bgColor = 'bg-darkgrey';
-                                break;
-                            case "Codewars":
-                                icon = codewarsIcon;
-                                bgColor = 'bg-wine';
-                                break;
-                            case "freeCodeCamp":
-                                icon = freecodecampIcon;
-                                bgColor = 'bg-darkpurple';
-                                break;
-                            default:
-                                icon = null;
-                                bgColor = '';
-                                break;
-                        }
-
-                        if (icon) {
-                            return (
-                                <a
-                                    className={`py-3 mb-5 w-full text-white rounded-lg ${bgColor}`}
-                                    href={item.url}
-                                    key={index}
-                                >
-                                    <div className='flex justify-between items-center px-4'>
-                                        <div className='flex items-center gap-1'>
-                                            <img className='h-4 w-4' src={icon} alt={item.title} />
-                                            {item.title}
-                                        </div>
-                                        <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
-                                    </div>
-                                </a>
-                            );
-                        }
-                        return null;
-                    })
+                <div className='flex items-center justify-center mb-6 md:bg-white md:mb-0 md:mx-52 md:rounded-t-3xl md:mt-32 md:pt-12 md:px-14'>
+                    {user && user.img && <img className='h-24 w-24 rounded-full bg-black border-4 border-purple' src={user.img} alt='profile' />}
+                </div>
+            </div>
+            <div className='md:bg-white md:mx-52 md:rounded-b-3xl md:pb-12'>
+                {user ? (
+                    <div className='flex flex-col mb-14 items-center'>
+                        <h1 className='mb-2 text-3xl font-bold text-darkgrey'>{user.firstname} {user.lastname}</h1>
+                        <p className='text-base text-grey'>{user.email}</p>
+                    </div>
                 ) : (
-                    <p>Loading links...</p>
+                    <p>Loading user information...</p>
                 )}
+                <div className='flex flex-col items-center px-20'>
+                    {list.length > 0 ? (
+                        list.map((item, index) => {
+                            let icon, bgColor;
+
+                            switch (item.title) {
+                                case "GitHub":
+                                    icon = githubIcon;
+                                    bgColor = 'bg-black';
+                                    break;
+                                case "YouTube":
+                                    icon = youtubeIcon;
+                                    bgColor = 'bg-red';
+                                    break;
+                                case "LinkedIn":
+                                    icon = linkedinIcon;
+                                    bgColor = 'bg-blue';
+                                    break;
+                                case "Dev.to":
+                                    icon = devtoIcon;
+                                    bgColor = 'bg-darkgrey';
+                                    break;
+                                case "Codewars":
+                                    icon = codewarsIcon;
+                                    bgColor = 'bg-wine';
+                                    break;
+                                case "freeCodeCamp":
+                                    icon = freecodecampIcon;
+                                    bgColor = 'bg-darkpurple';
+                                    break;
+                                default:
+                                    icon = null;
+                                    bgColor = '';
+                                    break;
+                            }
+
+                            if (icon) {
+                                return (
+                                    <a
+                                        className={`py-3 mb-5 w-full text-white rounded-lg ${bgColor}`}
+                                        href={item.url}
+                                        key={index}
+                                    >
+                                        <div className='flex justify-between items-center px-4'>
+                                            <div className='flex items-center gap-1'>
+                                                <img className='h-4 w-4' src={icon} alt={item.title} />
+                                                {item.title}
+                                            </div>
+                                            <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                        </div>
+                                    </a>
+                                );
+                            }
+                            return null;
+                        })
+                    ) : (
+                        <p>Loading links...</p>
+                    )}
+                </div>
             </div>
         </section>
     );

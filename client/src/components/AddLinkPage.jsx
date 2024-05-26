@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import linkempty from "../assets/emptylink.png";
+import emptylinkmd from "../assets/emptylinkmd.png"
 import drag from "../assets/drag.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { addLinks, fetchLinks } from '../features/links/linksSlice';
-import github from "../assets/github.png"
 
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([]);
@@ -70,9 +70,10 @@ function AddLinkPage() {
             </div>
             {linkForm.length === 0 ? (
                 <div className='flex flex-col items-center py-12 bg-lightgrey rounded-xl px-5 mb-6 mx-6'>
-                    <img className='h-20 w-32 mb-6' src={linkempty} alt='emptylistimg' />
+                    <img className='h-20 w-32 mb-6 md:hidden md:absolute' src={linkempty} alt='emptylistimg' />
+                    <img className='h-48 w-60 mb-6 hidden absolute md:flex md:relative' src={emptylinkmd} alt='emptylistimg' />
                     <h2 className='text-2xl font-bold text-darkgrey mb-6'>Let´s get you started</h2>
-                    <p className='text-center text-base text-grey'>Use the "Add new link" button to get started. Once you have more than one link, you can reorder and edit them. We´re here to help you share your profiles with everyone!</p>
+                    <p className='text-center text-base text-grey md:mx-14'>Use the "Add new link" button to get started. Once you have more than one link, you can reorder and edit them. We´re here to help you share your profiles with everyone!</p>
                 </div>
             ) : null}
             {linkForm.length > 0 && linkForm.map((form, index) => (
@@ -101,8 +102,8 @@ function AddLinkPage() {
                     </div>
                 </form>
             ))}
-            <div className='border-t border-borders py-4'>
-                {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6' disabled={true}>Save</button> }
+            <div className='border-t border-borders py-4 md:flex md:justify-end'>
+                {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6' disabled={true}>Save</button> }
             </div>
         </section>
     );
