@@ -32,7 +32,7 @@ function Register() {
     };
 
     return (
-        <form className='m-8 mb-32 md:mx-40 md:my-48 md:flex md:flex-col md:items-center' onSubmit={handleSubmit}>
+        <form className='m-8 mb-32 md:mx-40 md:my-48 md:flex md:flex-col md:items-center xl:w-[476px] xl:mx-0' onSubmit={handleSubmit}>
             <img className='h-10 w-44 mb-16' src={logo} alt='logo' />
             <div className='md:bg-white md:rounded-xl md:p-10'>
                 <div>
@@ -77,7 +77,7 @@ function Register() {
                         Create new account
                     </button>
                 </div>
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col items-center xl:flex-row xl:gap-1 xl:justify-center'>
                     <p className='text-base text-grey'>Already have an account?</p>
                     <Link to="/login" className='text-base text-purple'>Login</Link>
                 </div>

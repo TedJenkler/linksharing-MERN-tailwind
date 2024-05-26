@@ -53,13 +53,13 @@ function ViewUser() {
     };
 
     return (
-        <section className='pt-10 md:pt-0'>
-            <div className='md:bg-purple md:rounded-b-[32px] md:pt-6'>
-                <div className='flex items-center justify-center mb-6 md:bg-white md:mb-0 md:mx-52 md:rounded-t-3xl md:mt-32 md:pt-12 md:px-14'>
+        <section className='pt-4 md:pt-0 xl:flex xl:flex-col xl:items-center'>
+            <div className='md:bg-purple md:rounded-b-[32px] md:pt-6 xl:w-screen xl:flex xl:flex-col xl:items-center'>
+                <div className='flex items-center justify-center mb-6 md:bg-white md:mb-0 md:mx-52 md:rounded-t-3xl md:mt-32 md:pt-12 md:px-14 xl:mx-0 xl:w-[349px]'>
                     {user && user.img && <img className='h-24 w-24 rounded-full bg-black border-4 border-purple' src={user.img} alt='profile' />}
                 </div>
             </div>
-            <div className='md:bg-white md:mx-52 md:rounded-b-3xl md:pb-12'>
+            <div className='md:bg-white md:mx-52 md:rounded-b-3xl md:pb-12 xl:w-[349px]'>
                 {user ? (
                     <div className='flex flex-col mb-14 items-center'>
                         <h1 className='mb-2 text-3xl font-bold text-darkgrey'>{user.firstname} {user.lastname}</h1>

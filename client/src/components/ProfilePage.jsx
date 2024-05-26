@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../features/user/userSlice';
 import emptyimg from "../assets/emptyimg.png"
+import desktopimg from "../assets/desktopimg.png"
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -39,7 +40,11 @@ function ProfilePage() {
   };
 
   return (
-    <section className='m-4 bg-white py-6 rounded-xl mb-20'>
+    <div className='xl:flex xl:w-screen'>
+    <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:items-center xl:justify-center'>
+      <img className='w-80 h-[631px]' src={desktopimg} alt='design' />
+    </div>
+    <section className='m-4 bg-white py-6 rounded-xl mb-20 xl:w-7/12 xl:m-6'>
       <h1 className='mx-6 text-2xl font-bold text-darkgrey mb-2'>Profile Details</h1>
       <p className='mx-6 text-base text-grey mb-10'>Add your details to create a personal touch to your profile.</p>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -52,15 +57,15 @@ function ProfilePage() {
           <p className='text-xs text-grey md:w-1/4 md:ml-6'>Image must be below 1024x1024px. Use PNG or JPG format.</p>
         </div>
         <div className='flex flex-col p-5 bg-lightgrey rounded-xl mb-6 mx-6 md:mb-40'>
-          <div className='md:flex md:justify-between md:items-center md:mb-3'>
+          <div className='flex flex-col md:flex-row md:justify-between md:items-center md:mb-3'>
             <label className='text-xs text-darkgrey mb-1 md:m-0'>First name*</label>
             <input onChange={handleChange} value={formData.firstname} name="firstname" className='bg-white mb-4 h-12 rounded-lg px-4 border border-borders md:w-1/2 md:m-0'></input>
           </div>
-          <div className='md:flex md:justify-between md:items-center md:mb-3'>
+          <div className='flex flex-col md:flex-row md:justify-between md:items-center md:mb-3'>
             <label className='text-xs text-darkgrey mb-1 md:m-0'>Last name*</label>
             <input onChange={handleChange} value={formData.lastname} name="lastname" className='bg-white mb-4 h-12 rounded-lg px-4 border border-borders md:w-1/2 md:m-0'></input>
           </div>
-          <div className='md:flex md:justify-between md:items-center md:mb-3'>
+          <div className='flex flex-col md:flex-row md:justify-between md:items-center md:mb-3'>
             <label className='text-xs text-darkgrey mb-1 md:m-0'>Email*</label>
             <input onChange={handleChange} value={formData.email} name="email" className='bg-white mb-4 h-12 rounded-lg px-4 border border-borders md:w-1/2 md:m-0'></input>
           </div>
@@ -70,6 +75,7 @@ function ProfilePage() {
         </div>
       </form>
     </section>
+    </div>
   );
 }
 
