@@ -41,6 +41,11 @@ function Preview() {
         fetchData();
     }, [dispatch]);
 
+    const handleShare = () => {
+        navigator.clipboard.writeText("http://localhost:3000/view/" + user.email)
+        alert("The link has been copied to your clipboard!")
+    }
+
     // Function to convert ArrayBuffer to base64
     const arrayBufferToBase64 = (buffer) => {
         let binary = '';
@@ -56,7 +61,7 @@ function Preview() {
             <div className='md:bg-purple md:rounded-b-[32px] md:pt-6 xl:flex xl:flex-col xl:items-center xl:w-full'>
                 <div className='flex justify-between px-6 py-4 gap-4 mb-20 md:bg-white md:mx-6 md:mb-6 md:rounded-xl xl:w-11/12'>
                     <Link to="/app" className='bg-white text-center border item border-purple text-purple font-semibold text-base py-2 w-full rounded-lg md:w-1/4'>Back to Editor</Link>
-                    <button className='bg-purple text-white text-base font-semibold py-2 w-full rounded-lg md:w-1/4'>Share Link</button>
+                    <button onClick={handleShare} className='bg-purple text-white text-base font-semibold py-2 w-full rounded-lg md:w-1/4'>Share Link</button>
                 </div>
                 <div className='flex items-center justify-center mb-6 md:bg-white md:mb-0 md:mx-52 md:rounded-t-3xl md:mt-32 md:pt-12 md:px-14 xl:mt-20 xl:mx-0 xl:w-[349px]'>
                     {user && user.img && <img className='h-24 w-24 rounded-full bg-black border-4 border-purple' src={user.img} alt='profile' />}

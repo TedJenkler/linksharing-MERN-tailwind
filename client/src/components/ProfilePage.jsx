@@ -52,6 +52,7 @@ function ProfilePage() {
           email: '',
           img: null
         });
+        alert("Your changes have been saved!")
       } catch (error) {
         console.error('Update error:', error);
       }
