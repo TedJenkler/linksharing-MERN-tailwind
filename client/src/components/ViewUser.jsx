@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchLinks } from '../features/links/linksSlice';
+import { fetchLinkEmail } from '../features/links/linksSlice';
 import { getUserByEmail } from '../features/user/userSlice';
 import githubIcon from "../assets/github.png";
 import youtubeIcon from "../assets/youtube.png";
@@ -33,8 +33,8 @@ function ViewUser() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const linksResponse = await dispatch(fetchLinks());
-                setLinks(linksResponse.payload);
+                const linksResponse = await dispatch(fetchLinkEmail(email));
+                setLinks(linksResponse.payload[0].links);
             } catch (error) {
                 console.error('Error fetching links:', error);
             }
