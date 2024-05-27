@@ -16,7 +16,8 @@ export default {
         red: "#EE3939",
         blue: "#2D68FF",
         wine: "#8A1A50",
-        darkpurple: "#302267"
+        darkpurple: "#302267",
+        hoverpurple: "#BEADFF"
       },
       backgroundImage: {
         'iconemail': "url('/src/assets/iconmail.png')",

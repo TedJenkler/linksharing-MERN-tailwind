@@ -9,6 +9,39 @@ function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const [emailV, setEmailV] = useState(true); // Initialize as true
+    const [passV, setPassV] = useState(true); // Initialize as true
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let v = 0;
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            setEmailV(true);
+            v = v + 1;
+        } else {
+            setEmailV(false);
+        }
+        if (formData.password !== "") {
+            setPassV(true);
+            v = v + 1;
+        } else {
+            setPassV(false);
+        }
+        if (v === 2) {
+            try {
+                await dispatch(loginUser(formData));
+                navigate('/app');
+            } catch (error) {
+                console.error('Login error:', error);
+            }
+        }
+    };
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -17,21 +50,6 @@ function Login() {
             navigate('/login');
         }
     }, [navigate]);
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await dispatch(loginUser(formData));
-            navigate('/app');
-        } catch (error) {
-            console.error('Login error:', error);
-        }
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -48,30 +66,30 @@ function Login() {
                 </div>
                 <div>
                     <div className='flex flex-col mb-6'>
-                        <label className='text-xs text-darkgrey mb-1'>Email address</label>
+                        <label className={`text-xs text-darkgrey mb-1 ${!emailV ? 'text-red' : ''}`}>Email address</label>
                         <input
-                            className='h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1'
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!emailV ? 'outline outline-red' : ''}`}
                             placeholder='e.g alex@email.com'
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            required
                         />
+                        {!emailV && <span className="text-red text-xs relative bottom-8 left-48">Not valid email</span>}
                     </div>
                     <div className='flex flex-col mb-6'>
-                        <label className='text-xs text-darkgrey mb-1'>Password</label>
+                        <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''}`}>Password</label>
                         <input
-                            className='h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] pb-1'
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!passV ? 'outline outline-red' : ''}`}
                             placeholder='Enter your password'
                             type="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            required
                         />
+                        {!passV && <span className="text-red text-xs relative bottom-8 left-48">Not valid password</span>}
                     </div>
-                    <button type="submit" className="w-full h-12 bg-purple text-white rounded-lg mb-6">
+                    <button type='submit' className="w-full h-12 bg-purple text-white rounded-lg mb-6 hover:bg-hoverpurple">
                         Login
                     </button>
                 </div>

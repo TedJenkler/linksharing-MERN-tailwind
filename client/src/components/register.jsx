@@ -12,18 +12,43 @@ function Register() {
         confirmPassword: ''
     });
 
+    const [emailV, setEmailV] = useState(true);
+    const [passV, setPassV] = useState(true);
+    const [passMatch, setPassMatch] = useState(true);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await dispatch(registerUser(formData));
-        } catch (error) {
-            console.error('Registration error:', error);
+        let v = 0;
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            setEmailV(true);
+            v = v + 1;
+        } else {
+            setEmailV(false);
         }
-        setFormData({
-            email: '',
-            password: '',
-            confirmPassword: ''
-        });
+        if (formData.password.length >= 8) {
+            setPassV(true);
+            v = v + 1;
+        } else {
+            setPassV(false);
+        }
+        if (formData.password === formData.confirmPassword && formData.confirmPassword.length >= 8) {
+            setPassMatch(true);
+            v = v + 1;
+        } else {
+            setPassMatch(false);
+        }
+        if (v === 3) {
+            try {
+                await dispatch(registerUser(formData));
+                setFormData({
+                    email: '',
+                    password: '',
+                    confirmPassword: ''
+                });
+            } catch (error) {
+                console.error('Registration error:', error);
+            }
+        }
     };
 
     const handleChange = (e) => {
@@ -41,39 +66,42 @@ function Register() {
                 </div>
                 <div>
                     <div className='flex flex-col mb-6'>
-                        <label className='text-xs text-darkgrey mb-1'>Email address</label>
+                        <label className={`text-xs text-darkgrey mb-1 ${!emailV ? 'text-red' : ''}`}>Email address</label>
                         <input
-                            className='h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1'
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!emailV ? 'outline outline-red' : ''}`}
                             placeholder='e.g alex@email.com'
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            required
                         />
+                        {!emailV && <span className="text-red text-xs relative bottom-8 left-48">Not valid email</span>}
                     </div>
-                    <label className='text-xs text-darkgrey mb-1'>Create password</label>
-                    <input
-                        className='h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] pb-1 mb-6'
-                        placeholder='At least 8 characters'
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                    <label className='text-xs text-darkgrey mb-1'>Confirm password</label>
-                    <input
-                        className='h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] pb-1 mb-6'
-                        placeholder='At least 8 characters'
-                        type="password"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                    />
-                    <p className='text-xs text-darkgrey mb-6'>Password must contain at least 8 characters</p>
-                    <button type="submit" className="w-full h-12 bg-purple text-white rounded-lg mb-6">
+                    <div className='flex flex-col mb-6'>
+                        <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''}`}>Password</label>
+                        <input
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!passV ? 'outline outline-red' : ''}`}
+                            placeholder='At least 8 characters'
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                        {!passV && <span className="text-red text-xs relative bottom-8 left-48">Password is too short</span>}
+                    </div>
+                    <div className='flex flex-col mb-6'>
+                        <label className={`text-xs text-darkgrey mb-1 ${!passMatch ? 'text-red' : ''}`}>Confirm Password</label>
+                        <input
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!passMatch ? 'outline outline-red' : ''}`}
+                            placeholder='Confirm your password'
+                            type="password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                        />
+                        {!passMatch && <span className="text-red text-xs relative bottom-8 left-48">Passwords don't match</span>}
+                    </div>
+                    <button type='submit' className="w-full h-12 bg-purple text-white rounded-lg mb-6 hover:bg-hoverpurple">
                         Create new account
                     </button>
                 </div>
