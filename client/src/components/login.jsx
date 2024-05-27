@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/user/userSlice';
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,21 +14,21 @@ function Login() {
         password: ''
     });
 
-    const [emailV, setEmailV] = useState(true); // Initialize as true
-    const [passV, setPassV] = useState(true); // Initialize as true
+    const [emailV, setEmailV] = useState(true);
+    const [passV, setPassV] = useState(true);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         let v = 0;
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             setEmailV(true);
-            v = v + 1;
+            v += 1;
         } else {
             setEmailV(false);
         }
         if (formData.password !== "") {
             setPassV(true);
-            v = v + 1;
+            v += 1;
         } else {
             setPassV(false);
         }
@@ -75,7 +75,7 @@ function Login() {
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        {!emailV && <span className="text-red text-xs relative bottom-8 left-48">Not valid email</span>}
+                        {!emailV && <span className="text-red text-xs mt-1">Not valid email</span>}
                     </div>
                     <div className='flex flex-col mb-6'>
                         <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''}`}>Password</label>
@@ -87,7 +87,7 @@ function Login() {
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        {!passV && <span className="text-red text-xs relative bottom-8 left-48">Not valid password</span>}
+                        {!passV && <span className="text-red text-xs mt-1">Not valid password</span>}
                     </div>
                     <button type='submit' className="w-full h-12 bg-purple text-white rounded-lg mb-6 hover:bg-hoverpurple">
                         Login

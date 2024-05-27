@@ -52,7 +52,7 @@ function ProfilePage() {
           email: '',
           img: null
         });
-        alert("Your changes have been saved!")
+        alert("Your changes have been saved!");
       } catch (error) {
         console.error('Update error:', error);
       }
@@ -61,9 +61,10 @@ function ProfilePage() {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+    const newValue = name === 'img' ? files[0] : value;
     setFormData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: newValue
     }));
   };
 
@@ -76,22 +77,30 @@ function ProfilePage() {
         <h1 className='mx-6 text-2xl font-bold text-darkgrey mb-2'>Profile Details</h1>
         <p className='mx-6 text-base text-grey mb-10'>Add your details to create a personal touch to your profile.</p>
         <form encType="multipart/form-data" onSubmit={handleSubmit}>
+          <div className='p-5 mb-6 bg-lightgrey rounded-xl mx-6 md:flex md:justify-between md:items-center md:pb-0'>
+            <p className='text-base text-grey mb-4 md:w-1/2'>Profile picture</p>
+            <div className='mb-6'>
+              <label htmlFor="fileInput"><img className='h-48 w-48' src={formData.img ? URL.createObjectURL(formData.img) : emptyimg} alt='profile' /></label>
+              <input id='fileInput' className='hidden' onChange={handleChange} name="img" type='file' accept="image/png, image/jpeg"></input>
+            </div>
+            <p className='text-xs text-grey md:w-1/4 md:ml-6'>Image must be below 1024x1024px. Use PNG or JPG format.</p>
+          </div>
           <div className='flex flex-col p-5 bg-lightgrey rounded-xl mb-6 mx-6 md:mb-40'>
-            <div className='flex flex-col md:flex-row md:justify-between md:items-center md:mb-3'>
-              <label className={`text-xs text-darkgrey mb-1 md:m-0 ${!firstnameV ? 'text-red' : ''}`}>First name*</label>
-              <input onChange={handleChange} value={formData.firstname} name="firstname" className={`bg-white mb-4 h-12 rounded-lg px-4 border border-borders focus:outline-none ${!firstnameV ? 'border-red' : ''}`} placeholder="Enter your first name"></input>
+            <div className='flex flex-col mb-6'>
+              <label className={`text-xs text-darkgrey mb-1 ${!firstnameV ? 'text-red' : ''}`}>First name*</label>
+              <input onChange={handleChange} value={formData.firstname} name="firstname" className={`bg-white mb-1 h-12 rounded-lg px-4 border border-borders focus:outline-none ${!firstnameV ? 'border-red' : ''}`} placeholder="Enter your first name"></input>
+              {!firstnameV && <span className="text-red text-xs mt-1">First name can't be empty</span>}
             </div>
-            {!firstnameV && <span className="text-red text-xs relative bottom-8 left-12">First name can't be empty</span>}
-            <div className='flex flex-col md:flex-row md:justify-between md:items-center md:mb-3'>
-              <label className={`text-xs text-darkgrey mb-1 md:m-0 ${!lastnameV ? 'text-red' : ''}`}>Last name*</label>
-              <input onChange={handleChange} value={formData.lastname} name="lastname" className={`bg-white mb-4 h-12 rounded-lg px-4 border border-borders focus:outline-none ${!lastnameV ? 'border-red' : ''}`} placeholder="Enter your last name"></input>
+            <div className='flex flex-col mb-6'>
+              <label className={`text-xs text-darkgrey mb-1 ${!lastnameV ? 'text-red' : ''}`}>Last name*</label>
+              <input onChange={handleChange} value={formData.lastname} name="lastname" className={`bg-white mb-1 h-12 rounded-lg px-4 border border-borders focus:outline-none ${!lastnameV ? 'border-red' : ''}`} placeholder="Enter your last name"></input>
+              {!lastnameV && <span className="text-red text-xs mt-1">Last name can't be empty</span>}
             </div>
-            {!lastnameV && <span className="text-red text-xs relative bottom-8 left-12">Last name can't be empty</span>}
-            <div className='flex flex-col md:flex-row md:justify-between md:items-center md:mb-3'>
-              <label className={`text-xs text-darkgrey mb-1 md:m-0 ${!emailV ? 'text-red' : ''}`}>Email*</label>
-              <input onChange={handleChange} value={formData.email} name="email" className={`bg-white mb-4 h-12 rounded-lg px-4 border border-borders focus:outline-none ${!emailV ? 'border-red' : ''}`} placeholder="Enter your email"></input>
+            <div className='flex flex-col mb-6'>
+              <label className={`text-xs text-darkgrey mb-1 ${!emailV ? 'text-red' : ''}`}>Email*</label>
+              <input onChange={handleChange} value={formData.email} name="email" className={`bg-white mb-1 h-12 rounded-lg px-4 border border-borders focus:outline-none ${!emailV ? 'border-red' : ''}`} placeholder="Enter your email"></input>
+              {!emailV && <span className="text-red text-xs mt-1">Please enter a valid email</span>}
             </div>
-            {!emailV && <span className="text-red text-xs relative bottom-8 left-12">Please enter a valid email</span>}
           </div>
           <div className='border-t border-borders py-4 md:flex md:justify-end md:pt-8'>
             <button type="submit" className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6 hover:bg-hoverpurple'>Save</button>

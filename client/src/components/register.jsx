@@ -21,19 +21,19 @@ function Register() {
         let v = 0;
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             setEmailV(true);
-            v = v + 1;
+            v += 1;
         } else {
             setEmailV(false);
         }
         if (formData.password.length >= 8) {
             setPassV(true);
-            v = v + 1;
+            v += 1;
         } else {
             setPassV(false);
         }
         if (formData.password === formData.confirmPassword && formData.confirmPassword.length >= 8) {
             setPassMatch(true);
-            v = v + 1;
+            v += 1;
         } else {
             setPassMatch(false);
         }
@@ -75,7 +75,7 @@ function Register() {
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        {!emailV && <span className="text-red text-xs relative bottom-8 left-48">Not valid email</span>}
+                        {!emailV && <span className="text-red text-xs mt-1">Not valid email</span>}
                     </div>
                     <div className='flex flex-col mb-6'>
                         <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''}`}>Password</label>
@@ -87,7 +87,7 @@ function Register() {
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        {!passV && <span className="text-red text-xs relative bottom-8 left-48">Password is too short</span>}
+                        {!passV && <span className="text-red text-xs mt-1">Password is too short</span>}
                     </div>
                     <div className='flex flex-col mb-6'>
                         <label className={`text-xs text-darkgrey mb-1 ${!passMatch ? 'text-red' : ''}`}>Confirm Password</label>
@@ -99,8 +99,9 @@ function Register() {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                         />
-                        {!passMatch && <span className="text-red text-xs relative bottom-8 left-48">Passwords don't match</span>}
+                        {!passMatch && <span className="text-red text-xs mt-1">Passwords don't match</span>}
                     </div>
+                    <p className='mb-6 text-xs text-grey'>Password must contain at least 8 characters</p>
                     <button type='submit' className="w-full h-12 bg-purple text-white rounded-lg mb-6 hover:bg-hoverpurple">
                         Create new account
                     </button>

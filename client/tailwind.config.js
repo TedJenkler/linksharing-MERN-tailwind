@@ -24,6 +24,9 @@ export default {
         'iconemail': "url('/src/assets/iconmail.png')",
         'iconpass': "url('/src/assets/iconpassword.png')",
       },
+      fontFamily: {
+        sans: ['Instrument Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
+      },
     },
   },
   plugins: [],
