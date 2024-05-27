@@ -8,6 +8,7 @@ import desktopimg from "../assets/desktopimg.png"
 
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([]);
+    const [errorField, setErrorField] = useState(null);
     const dispatch = useDispatch();
     const loading = useSelector(state => state.links.loading);
     const error = useSelector(state => state.links.error);
@@ -37,6 +38,7 @@ function AddLinkPage() {
         const newLinkForm = [...linkForm];
         newLinkForm[index][name] = value;
         setLinkForm(newLinkForm);
+        setErrorField(null);
     };
 
     const handleDelete = (index) => {
@@ -47,10 +49,15 @@ function AddLinkPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await dispatch(addLinks(linkForm)).unwrap();
-        } catch (error) {
-            console.error('AddLink error:', error);
+        const emptyIndex = linkForm.findIndex(form => form.title === '' || form.url === '');
+        if (emptyIndex !== -1) {
+            setErrorField(emptyIndex);
+        } else {
+            try {
+                await dispatch(addLinks(linkForm)).unwrap();
+            } catch (error) {
+                console.error('AddLink error:', error);
+            }
         }
     };
 
@@ -64,17 +71,15 @@ function AddLinkPage() {
 
     return (
         <div className='xl:flex xl:w-screen'>
-            {/* Side Menu */}
             <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:items-center xl:justify-center'>
                 <img className='w-80 h-[631px]' src={desktopimg} alt='design' />
             </div>
-            {/* Main Content */}
             <section className='m-4 bg-white py-6 rounded-xl mb-20 xl:w-7/12 xl:m-6'>
                 <section className='m-4 bg-white py-6 rounded-xl mb-20'>
                     <div className='flex flex-col px-6'>
                         <h1 className='text-2xl font-bold text-darkgrey mb-2'>Customize your links</h1>
                         <p className='text-base font-grey text-grey mb-10'>Add/edit/remove links below and then share all your profiles with the world!</p>
-                        <button onClick={handleAdd} className='text-purple font-semibold text-base border border-purple py-2 w-full rounded-lg mb-6'>+ Add new link</button>
+                        <button onClick={handleAdd} className='text-purple font-semibold text-base border border-purple py-2 w-full rounded-lg mb-6 hover:bg-lightpurple'>+ Add new link</button>
                     </div>
                     {linkForm.length === 0 ? (
                         <div className='flex flex-col items-center py-12 bg-lightgrey rounded-xl px-5 mb-6'>
@@ -105,13 +110,14 @@ function AddLinkPage() {
                                 </select>
                             </div>
                             <div className='flex flex-col'>
-                                <label className='text-xs text-darkgrey mb-1'>Link</label>
-                                <input className='outline outline-borders rounded-lg px-4 h-12 mb-3' type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} />
+                                <label className={`text-xs text-darkgrey mb-1 ${errorField === index && (form.url === '' ? 'text-red' : '')}`}>Link</label>
+                                <input className={`outline outline-borders rounded-lg px-4 h-12 mb-3 ${errorField === index && (form.url === '' ? 'outline-red' : '')}`} type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} />
+                                {errorField === index && <span className='text-red text-xs'>This field is required</span>}
                             </div>
                         </form>
                     ))}
                     <div className='border-t flex border-borders py-4 justify-center md:justify-end'>
-                        {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6' disabled={true}>Save</button> }
+                        {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6 hover:bg-hoverpurple'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6' disabled={true}>Save</button> }
                     </div>
                 </section>
             </section>

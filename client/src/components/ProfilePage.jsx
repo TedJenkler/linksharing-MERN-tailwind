@@ -71,7 +71,7 @@ function ProfilePage() {
           </div>
         </div>
         <div className='border-t border-borders py-4 md:flex md:justify-end md:pt-8'>
-          <button type="submit" className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6'>Save</button>
+          <button type="submit" className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6 hover:bg-hoverpurple'>Save</button>
         </div>
       </form>
     </section>
