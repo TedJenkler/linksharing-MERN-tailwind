@@ -74,7 +74,7 @@ function AddLinkPage() {
             <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:items-center xl:justify-center'>
                 <img className='w-80 h-[631px]' src={desktopimg} alt='design' />
             </div>
-            <section className='m-4 bg-white py-6 rounded-xl mb-20 xl:w-7/12 xl:m-6'>
+            <section className='m-4 bg-white py-6 rounded-xl mb-20 md:mx-6 xl:w-7/12 xl:m-6'>
                 <section className='m-4 bg-white py-6 rounded-xl mb-20'>
                     <div className='flex flex-col px-6'>
                         <h1 className='text-2xl font-bold text-darkgrey mb-2'>Customize your links</h1>

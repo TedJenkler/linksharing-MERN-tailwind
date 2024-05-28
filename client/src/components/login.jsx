@@ -57,9 +57,9 @@ function Login() {
     };
 
     return (
-        <form className='m-8 mb-32 md:mx-40 md:my-48 md:flex md:flex-col md:items-center xl:w-[476px] xl:mx-0' onSubmit={handleSubmit}>
-            <img className='h-10 w-44 mb-16' src={logo} alt='logo' />
-            <div className='md:bg-white md:rounded-xl md:p-10'>
+        <form className='m-8 mb-32 md:mx-40 md:w-3/5 md:my-48 md:flex md:flex-col md:items-center xl:w-[476px] xl:mx-0' onSubmit={handleSubmit}>
+            <img className='h-10 w-44 mb-16 md:mb-12' src={logo} alt='logo' />
+            <div className='md:bg-white md:rounded-xl md:p-10 md:w-full'>
                 <div>
                     <h1 className='text-2xl font-bold text-darkgrey mb-2'>Login</h1>
                     <p className='text-base text-grey mb-10'>Add your details below to get back into the app</p>
@@ -93,7 +93,7 @@ function Login() {
                         Login
                     </button>
                 </div>
-                <div className='flex flex-col items-center xl:flex-row xl:justify-center xl:gap-1'>
+                <div className='flex flex-col items-center md:flex-row md:justify-center md:gap-1'>
                     <p className='text-base text-grey'>Don't have an account?</p>
                     <Link to="/register" className='text-base text-purple'>Create account</Link>
                 </div>

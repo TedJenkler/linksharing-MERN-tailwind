@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
 
 function Nav({togglePage, setTogglePage}) {
   return (
-    <nav className='flex justify-between items-center py-4 px-6 bg-white md:m-4 md:rounded-xl'>
+    <nav className='flex justify-between items-center py-4 px-6 bg-white md:m-6 md:rounded-xl'>
         <img className='h-8 md:hidden md:absolute' src={logo} alt='logo' />
         <img className='h-8 hidden absolute md:flex md:relative' src={logomd} alt='logo' />
         <div onClick={(e) => setTogglePage(!togglePage)} className='flex'>
