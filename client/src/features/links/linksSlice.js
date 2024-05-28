@@ -27,9 +27,13 @@ export const fetchLinks = createAsyncThunk(
             }
         });
         if (!response.ok) {
+            if(response.status === 401) {
+                localStorage.removeItem('token');
+              }
             const errorData = await response.json();
             throw new Error(errorData.message || 'Failed to fetch links');
         }
+
         const data = await response.json();
         console.log('Fetched links data:', data.links);
         return data.links;
@@ -51,6 +55,9 @@ export const addLinks = createAsyncThunk(
                 body: JSON.stringify({ links: linkData })
             });
             if (!response.ok) {
+                if(response.status === 401) {
+                    localStorage.removeItem('token');
+                  }
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Failed to add list');
             }

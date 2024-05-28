@@ -28,6 +28,9 @@ export const getUserByToken = createAsyncThunk(
       }
     });
     if (!response.ok) {
+      if(response.status === 401) {
+        localStorage.removeItem('token');
+      }
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to fetch user');
     }
@@ -119,6 +122,9 @@ export const updateUser = createAsyncThunk(
       });
 
       if (!response.ok) {
+        if(response.status === 401) {
+          localStorage.removeItem('token');
+        }
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to update user');
       }
