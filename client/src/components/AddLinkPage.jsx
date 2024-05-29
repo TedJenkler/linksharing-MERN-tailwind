@@ -11,13 +11,29 @@ import devto from "../assets/devto.png";
 import codewars from "../assets/codewars.png";
 import freecodecamp from "../assets/freecodecamp.png";
 import arrowIcon from "../assets/arrowright.png";
+import { getUserByToken } from '../features/user/userSlice';
 
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([]);
+    const [user, setUser] = useState(null)
     const [errorField, setErrorField] = useState(null);
     const dispatch = useDispatch();
     const loading = useSelector(state => state.links.loading);
     const error = useSelector(state => state.links.error);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await dispatch(getUserByToken());
+                setUser({ ...res.payload, img: `data:image/jpeg;base64,${arrayBufferToBase64(res.payload.img.data.data)}` });
+            }catch (error) {
+                console.error('Error fetching user:', error)
+            }
+        }
+        fetchData()
+    },[dispatch])
+
+    console.log(user)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,13 +90,26 @@ function AddLinkPage() {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
+    // Function to convert ArrayBuffer to base64
+    const arrayBufferToBase64 = (buffer) => {
+        let binary = '';
+        const bytes = new Uint8Array(buffer);
+        for (let i = 0; i < bytes.byteLength; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    };
+
     return (
         <div className='xl:flex xl:w-screen'>
             <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:pt-24 xl:justify-center'>
                 <div className='relative w-80 h-[631px] bg-frame bg-no-repeat bg-contain'>
+                <img className='absolute h-[96px] w-[96px] rounded-full top-[63.7px] left-[104.5px] border-2 border-purple' src={user ? user.img : null} />
+                <p className='absolute text-xs top-[192.5px] left-[48%] transform -translate-x-1/2 -translate-y-1/2'>{user ? user.firstname : null} {user ? user.lastname : null}</p>
+                <p className='absolute text-xs top-[217.5px] left-[48%] transform -translate-x-1/2 -translate-y-1/2'>{user ? user.email : null}</p>
                 {linkForm.length > 0 && linkForm.slice(0, 5).map((form, index) => (
                         <div className='relative top-72 left-9 mb-5' key={index}>
-                            {console.log(form.title)}
                             {form.title === "GitHub" ? (
                                 <div className='bg-black text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
                                     <div className='flex items-center h-full gap-1'>
