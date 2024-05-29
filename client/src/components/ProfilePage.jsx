@@ -190,17 +190,17 @@ function ProfilePage() {
             <div className='flex flex-col mb-6 md:flex-row md:w-full md:items-center md:mb-3 md:relative'>
               <label className={`text-xs text-darkgrey mb-1 md:w-1/3 ${!firstnameV ? 'text-red' : ''}`}>First name*</label>
               <input onChange={handleChange} value={formData.firstname} name="firstname" className={`bg-white mb-1 h-12 rounded-lg px-4 border border-borders md:w-2/3 focus:outline-none ${!firstnameV ? 'border-red' : ''}`} placeholder="Enter your first name"></input>
-              {!firstnameV && <span className="text-red text-xs mt-1 md:absolute md:right-2 top-3">First name can't be empty</span>}
+              {!firstnameV && <span className="text-red text-xs mt-1 md:absolute md:right-4 top-3">First name can't be empty</span>}
             </div>
             <div className='flex flex-col mb-6 md:flex-row md:w-full md:items-center md:mb-3 md:relative'>
               <label className={`text-xs text-darkgrey mb-1 md:w-1/3 ${!lastnameV ? 'text-red' : ''}`}>Last name*</label>
               <input onChange={handleChange} value={formData.lastname} name="lastname" className={`bg-white mb-1 h-12 rounded-lg px-4 border border-borders md:w-2/3 focus:outline-none ${!lastnameV ? 'border-red' : ''}`} placeholder="Enter your last name"></input>
-              {!lastnameV && <span className="text-red text-xs mt-1 md:absolute md:right-2 top-3">Last name can't be empty</span>}
+              {!lastnameV && <span className="text-red text-xs mt-1 md:absolute md:right-4 top-3">Last name can't be empty</span>}
             </div>
             <div className='flex flex-col mb-6 md:flex-row md:w-full md:items-center md:mb-3 md:relative'>
               <label className={`text-xs text-darkgrey mb-1 md:w-1/3 ${!emailV ? 'text-red' : ''}`}>Email*</label>
               <input onChange={handleChange} value={formData.email} name="email" className={`bg-white mb-1 h-12 rounded-lg px-4 border border-borders md:w-2/3 focus:outline-none ${!emailV ? 'border-red' : ''}`} placeholder="Enter your email"></input>
-              {!emailV && <span className="text-red text-xs mt-1 md:absolute md:right-2 top-3">Please enter a valid email</span>}
+              {!emailV && <span className="text-red text-xs mt-1 md:absolute md:right-4 top-3">Please enter a valid email</span>}
             </div>
           </div>
           <div className='border-t border-borders py-4 md:flex md:justify-end md:pt-8'>

@@ -12,6 +12,7 @@ import codewars from "../assets/codewars.png";
 import freecodecamp from "../assets/freecodecamp.png";
 import arrowIcon from "../assets/arrowright.png";
 import { getUserByToken } from '../features/user/userSlice';
+import CustomSelect from './CustomSelect';
 
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([]);
@@ -187,15 +188,8 @@ function AddLinkPage() {
                                 <p onClick={() => handleDelete(index)} className='text-base text-grey'>Remove</p>
                             </div>
                             <div className='flex flex-col'>
-                                <label className='text-xs text-darkgrey mb-1'>Platform</label>
-                                <select className='outline outline-borders rounded-lg px-4 h-12 mb-3' name='title' value={form.title || 'github'} onChange={(e) => handleChange(index, e)}>
-                                    <option value='GitHub'>GitHub</option>
-                                    <option value='YouTube'>YouTube</option>
-                                    <option value='LinkedIn'>LinkedIn</option>
-                                    <option value='Dev.to'>Dev.to</option>
-                                    <option value='Codewars'>Codewars</option>
-                                    <option value='freeCodeCamp'>freeCodeCamp</option>
-                                </select>
+                            <label className='text-xs text-darkgrey mb-1'>Platform</label>
+                            <CustomSelect handleChange={handleChange} index={index} form={form} />
                             </div>
                             <div className='flex flex-col'>
                                 <label className={`text-xs text-darkgrey mb-1 ${errorField === index && (form.url === '' ? 'text-red' : '')}`}>Link</label>
