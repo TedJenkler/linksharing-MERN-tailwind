@@ -23,6 +23,7 @@ export default {
       backgroundImage: {
         'iconemail': "url('/src/assets/iconmail.png')",
         'iconpass': "url('/src/assets/iconpassword.png')",
+        'frame': "url('/src/assets/frame.png')"
       },
       fontFamily: {
         sans: ['Instrument Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],

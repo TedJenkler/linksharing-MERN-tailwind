@@ -4,7 +4,13 @@ import emptylinkmd from "../assets/emptylinkmd.png"
 import drag from "../assets/drag.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { addLinks, fetchLinks } from '../features/links/linksSlice';
-import desktopimg from "../assets/desktopimg.png"
+import github from "../assets/github.png"
+import youtube from "../assets/youtube.png";
+import linkedin from "../assets/linkedin.png";
+import devto from "../assets/devto.png";
+import codewars from "../assets/codewars.png";
+import freecodecamp from "../assets/freecodecamp.png";
+import arrowIcon from "../assets/arrowright.png";
 
 function AddLinkPage() {
     const [linkForm, setLinkForm] = useState([]);
@@ -68,11 +74,64 @@ function AddLinkPage() {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
     return (
         <div className='xl:flex xl:w-screen'>
-            <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:items-center xl:justify-center'>
-                <img className='w-80 h-[631px]' src={desktopimg} alt='design' />
+            <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:pt-24 xl:justify-center'>
+                <div className='relative w-80 h-[631px] bg-frame bg-no-repeat bg-contain'>
+                {linkForm.length > 0 && linkForm.slice(0, 5).map((form, index) => (
+                        <div className='relative top-72 left-9 mb-5' key={index}>
+                            {console.log(form.title)}
+                            {form.title === "GitHub" ? (
+                                <div className='bg-black text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={github} alt='github' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "YouTube" ? (
+                                <div className='bg-red text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={youtube} alt='youtube' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "LinkedIn" ? (
+                                <div className='bg-blue text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={linkedin} alt='linkedin' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Dev.to" ? (
+                                <div className='bg-grey text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={devto} alt='devto' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Codewars" ? (
+                                <div className='bg-wine text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={codewars} alt='codewars' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "freeCodeCamp" ? (
+                                <div className='bg-darkpurple text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={freecodecamp} alt='freecodecamp' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                        </div>
+                    ))}
+                </div>
             </div>
             <section className='m-4 bg-white py-6 rounded-xl mb-20 md:mx-6 xl:w-7/12 xl:m-6'>
                 <section className='m-4 bg-white py-6 rounded-xl mb-20'>
