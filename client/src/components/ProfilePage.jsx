@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../features/user/userSlice';
 import emptyimg from "../assets/emptyimg.png";
-import desktopimg from "../assets/desktopimg.png";
+import { fetchLinks } from '../features/links/linksSlice';
+import github from "../assets/github.png"
+import youtube from "../assets/youtube.png";
+import linkedin from "../assets/linkedin.png";
+import devto from "../assets/devto.png";
+import codewars from "../assets/codewars.png";
+import freecodecamp from "../assets/freecodecamp.png";
+import arrowIcon from "../assets/arrowright.png";
+import { getUserByToken } from '../features/user/userSlice';
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -16,6 +24,21 @@ function ProfilePage() {
   const [emailV, setEmailV] = useState(true);
   const [firstnameV, setFirstnameV] = useState(true);
   const [lastnameV, setLastnameV] = useState(true);
+  const [list, setList] = useState([])
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const res = await dispatch(fetchLinks());
+            setList(res.payload);
+        } catch (error) {
+            console.error('Error fetching links:', error);
+        }
+    };
+
+    fetchData();
+}, [dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,10 +91,88 @@ function ProfilePage() {
     }));
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const res = await dispatch(getUserByToken());
+            setUser({ ...res.payload, img: `data:image/jpeg;base64,${arrayBufferToBase64(res.payload.img.data.data)}` });
+        }catch (error) {
+            console.error('Error fetching user:', error)
+        }
+    }
+    fetchData()
+},[dispatch])
+
+   // Function to convert ArrayBuffer to base64
+   const arrayBufferToBase64 = (buffer) => {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.byteLength; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+};
+
   return (
     <div className='xl:flex xl:w-screen'>
-      <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:items-center xl:justify-center'>
-        <img className='w-80 h-[631px]' src={desktopimg} alt='design' />
+      <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:pt-24 xl:justify-center'>
+        <div className='relative w-80 h-[631px] bg-frame bg-no-repeat bg-contain'>
+        <img className='absolute h-[96px] w-[96px] rounded-full top-[63.7px] left-[104.5px] border-2 border-purple' src={user ? user.img : null} />
+        <p className='absolute text-xs top-[192.5px] left-[48%] transform -translate-x-1/2 -translate-y-1/2'>{user ? user.firstname : null} {user ? user.lastname : null}</p>
+        <p className='absolute text-xs top-[217.5px] left-[48%] transform -translate-x-1/2 -translate-y-1/2'>{user ? user.email : null}</p>
+        {list ? list.length > 0 && list.slice(0, 5).map((form, index) => (
+                        <div className='relative top-72 left-9 mb-5' key={index}>
+                            {form.title === "GitHub" ? (
+                                <div className='bg-black text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={github} alt='github' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "YouTube" ? (
+                                <div className='bg-red text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={youtube} alt='youtube' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "LinkedIn" ? (
+                                <div className='bg-blue text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={linkedin} alt='linkedin' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Dev.to" ? (
+                                <div className='bg-grey text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={devto} alt='devto' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Codewars" ? (
+                                <div className='bg-wine text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={codewars} alt='codewars' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "freeCodeCamp" ? (
+                                <div className='bg-darkpurple text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={freecodecamp} alt='freecodecamp' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                        </div>
+                    )) : null}
+        </div>
       </div>
       <section className='m-4 bg-white py-6 rounded-xl mb-20 md:mx-6 xl:w-7/12 xl:m-6'>
         <h1 className='mx-6 text-2xl font-bold text-darkgrey mb-2 md:mx-10'>Profile Details</h1>
