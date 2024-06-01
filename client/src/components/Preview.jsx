@@ -66,7 +66,7 @@ function Preview() {
     return (
         <section className='xl:w-screen xl:flex xl:flex-col xl:items-center'>
             <div className='md:bg-purple md:rounded-b-[32px] md:pt-6 xl:flex xl:flex-col xl:items-center xl:w-full'>
-                <div className='flex justify-between px-6 py-4 gap-4 mb-20 md:bg-white md:mx-6 md:mb-6 md:rounded-xl xl:w-11/12'>
+                <div className='flex justify-between px-6 py-4 gap-4 mb-20 md:bg-white md:mx-6 md:mb-6 md:rounded-xl xl:w-11/12 xl:z-50'>
                     <Link to="/app" className='bg-white text-center border item border-purple text-purple font-semibold text-base py-2 w-full rounded-lg md:w-1/4'>Back to Editor</Link>
                     <button onClick={handleShare} className='bg-purple text-white text-base font-semibold py-2 w-full rounded-lg md:w-1/4'>Share Link</button>
                 </div>
@@ -74,7 +74,7 @@ function Preview() {
                     {user && user.img && <img className='h-24 w-24 rounded-full bg-black border-4 border-purple' src={user.img} alt='profile' />}
                 </div>
             </div>
-            <div className='md:bg-white md:mx-52 md:rounded-b-3xl md:pb-12 xl:mx-0 xl:w-[349px]'>
+            <div className='md:bg-white md:mx-52 md:rounded-b-3xl md:pb-12 xl:mx-0 xl:w-[349px] xl:relative xl:bottom-1'>
                 {user ? (
                     <div className='flex flex-col mb-14 items-center'>
                         <h1 className='mb-2 text-3xl font-bold text-darkgrey'>{user.firstname} {user.lastname}</h1>
