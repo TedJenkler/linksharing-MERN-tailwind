@@ -9,6 +9,13 @@ import linkedin from "../assets/linkedin.png";
 import devto from "../assets/devto.png";
 import codewars from "../assets/codewars.png";
 import freecodecamp from "../assets/freecodecamp.png";
+import frontendmentor from "../assets/frontendmentor.png";
+import twitter from "../assets/twitter.png"
+import facebook from "../assets/facebook.png"
+import twitch from "../assets/twitch.png"
+import gitlab from "../assets/gitlab.png"
+import hashnode from "../assets/hashnode.png"
+import overflow from "../assets/overflow.png"
 import arrowIcon from "../assets/arrowright.png";
 import { getUserByToken } from '../features/user/userSlice';
 
@@ -166,6 +173,62 @@ function ProfilePage() {
                                 <div className='bg-darkpurple text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
                                     <div className='flex items-center h-full gap-1'>
                                         <img className='h-5 w-5' src={freecodecamp} alt='freecodecamp' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "FrontendMentor" ? (
+                                <div className='bg-white text-darkgrey w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={frontendmentor} alt='frontendmentor' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Twitter" ? (
+                                <div className='bg-twitter text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={twitter} alt='twitter' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Facebook" ? (
+                                <div className='bg-facebook text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={facebook} alt='facebook' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Twitch" ? (
+                                <div className='bg-twitch text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={twitch} alt='twitch' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "GitLab" ? (
+                                <div className='bg-gitlab text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={gitlab} alt='gitlab' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Hashnode" ? (
+                                <div className='bg-hashnode text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={hashnode} alt='hashnode' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "StackOverflow" ? (
+                                <div className='bg-overflow text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={overflow} alt='Stack Overflow' />{form.title}
                                     </div>
                                     <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
                                 </div>

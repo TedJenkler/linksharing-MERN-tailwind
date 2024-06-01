@@ -8,6 +8,13 @@ import linkedinIcon from "../assets/linkedin.png";
 import devtoIcon from "../assets/devto.png";
 import codewarsIcon from "../assets/codewars.png";
 import freecodecampIcon from "../assets/freecodecamp.png";
+import frontendmentor from "../assets/frontendmentor.png";
+import twitter from "../assets/twitter.png";
+import facebook from "../assets/facebook.png";
+import twitch from "../assets/twitch.png";
+import gitlab from "../assets/gitlab.png";
+import hashnode from "../assets/hashnode.png";
+import overflow from "../assets/overflow.png";
 import arrowIcon from "../assets/arrowright.png";
 import { useParams } from 'react-router';
 
@@ -65,9 +72,7 @@ function ViewUser() {
                         <h1 className='mb-2 text-3xl font-bold text-darkgrey'>{user.firstname} {user.lastname}</h1>
                         <p className='text-base text-grey'>{user.email}</p>
                     </div>
-                ) : (
-                    <p>Loading user information...</p>
-                )}
+                ) : null}
                 <div className='flex flex-col items-center px-20'>
                     {links.length > 0 ? (
                         links.map((item, index) => {
@@ -98,6 +103,62 @@ function ViewUser() {
                                     icon = freecodecampIcon;
                                     bgColor = 'bg-darkpurple';
                                     break;
+                                case "FrontendMentor":
+                                    icon = frontendmentor;
+                                    bgColor = 'bg-white text-darkgrey';
+                                    break;
+                                case "Twitter":
+                                    icon = twitter;
+                                    bgColor = 'bg-twitter';
+                                    break;
+                                case "Facebook":
+                                    icon = facebook;
+                                    bgColor = 'bg-facebook';
+                                    break;
+                                case "Twitch":
+                                    icon = twitch;
+                                    bgColor = 'bg-twitch';
+                                    break;
+                                case "GitLab":
+                                    icon = gitlab;
+                                    bgColor = 'bg-gitlab';
+                                    break;
+                                case "Hashnode":
+                                    icon = hashnode;
+                                    bgColor = 'bg-hashnode';
+                                    break;
+                                case "StackOverflow":
+                                    icon = overflow;
+                                    bgColor = 'bg-overflow';
+                                    break;
+                                case "FrontendMentor":
+                                    icon = frontendmentor;
+                                    bgColor = 'bg-white text-darkgrey';
+                                    break;
+                                case "Twitter":
+                                    icon = twitter;
+                                    bgColor = 'bg-twitter';
+                                    break;
+                                case "Facebook":
+                                    icon = facebook;
+                                    bgColor = 'bg-facebook';
+                                    break;
+                                case "Twitch":
+                                    icon = twitch;
+                                    bgColor = 'bg-twitch';
+                                    break;
+                                case "GitLab":
+                                    icon = gitlab;
+                                    bgColor = 'bg-gitlab';
+                                    break;
+                                case "Hashnode":
+                                    icon = hashnode;
+                                    bgColor = 'bg-hashnode';
+                                    break;
+                                case "StackOverflow":
+                                    icon = overflow;
+                                    bgColor = 'bg-overflow';
+                                    break;   
                                 default:
                                     icon = null;
                                     bgColor = '';
@@ -123,9 +184,7 @@ function ViewUser() {
                             }
                             return null;
                         })
-                    ) : (
-                        <p>Loading links...</p>
-                    )}
+                    ) : null}
                 </div>
             </div>
         </section>
