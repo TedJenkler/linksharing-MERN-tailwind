@@ -18,7 +18,13 @@ export default {
         wine: "#8A1A50",
         darkpurple: "#302267",
         hoverpurple: "#BEADFF",
-        lightpurple: "#EFEBFF"
+        lightpurple: "#EFEBFF",
+        twitter: "#43B7E9",
+        facebook: "#2442AC",
+        twitch: "#EE3FC8",
+        gitlab: "#EB4925",
+        hashnode: "#0330D1",
+        overflow: "#EC7100",
       },
       backgroundImage: {
         'iconemail': "url('/src/assets/iconmail.png')",

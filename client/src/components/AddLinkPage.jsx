@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import linkempty from "../assets/emptylink.png";
 import emptylinkmd from "../assets/emptylinkmd.png"
 import drag from "../assets/drag.png";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addLinks, fetchLinks } from '../features/links/linksSlice';
 import github from "../assets/github.png"
 import youtube from "../assets/youtube.png";
@@ -10,6 +10,13 @@ import linkedin from "../assets/linkedin.png";
 import devto from "../assets/devto.png";
 import codewars from "../assets/codewars.png";
 import freecodecamp from "../assets/freecodecamp.png";
+import frontendmentor from "../assets/frontendmentor.png";
+import twitter from "../assets/twitter.png"
+import facebook from "../assets/facebook.png"
+import twitch from "../assets/twitch.png"
+import gitlab from "../assets/gitlab.png"
+import hashnode from "../assets/hashnode.png"
+import overflow from "../assets/overflow.png"
 import arrowIcon from "../assets/arrowright.png";
 import { getUserByToken } from '../features/user/userSlice';
 import CustomSelect from './CustomSelect';
@@ -19,8 +26,6 @@ function AddLinkPage() {
     const [user, setUser] = useState(null)
     const [errorField, setErrorField] = useState(null);
     const dispatch = useDispatch();
-    const loading = useSelector(state => state.links.loading);
-    const error = useSelector(state => state.links.error);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -83,14 +88,6 @@ function AddLinkPage() {
             }
         }
     };
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
 
     // Function to convert ArrayBuffer to base64
     const arrayBufferToBase64 = (buffer) => {
@@ -159,6 +156,62 @@ function AddLinkPage() {
                                     <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
                                 </div>
                             ) : null}
+                            {form.title === "FrontendMentor" ? (
+                                <div className='bg-white text-darkgrey w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={frontendmentor} alt='frontendmentor' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Twitter" ? (
+                                <div className='bg-twitter text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={twitter} alt='twitter' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Facebook" ? (
+                                <div className='bg-facebook text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={facebook} alt='facebook' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Twitch" ? (
+                                <div className='bg-twitch text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={twitch} alt='twitch' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "GitLab" ? (
+                                <div className='bg-gitlab text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={gitlab} alt='gitlab' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "Hashnode" ? (
+                                <div className='bg-hashnode text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={hashnode} alt='hashnode' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
+                            {form.title === "StackOverflow" ? (
+                                <div className='bg-overflow text-white w-[237px] h-[44px] relative bottom-2 rounded-lg justify-between items-center flex px-5'>
+                                    <div className='flex items-center h-full gap-1'>
+                                        <img className='h-5 w-5' src={overflow} alt='Stack Overflow' />{form.title}
+                                    </div>
+                                    <img className='h-4 w-4' src={arrowIcon} alt='arrow' />
+                                </div>
+                            ) : null}
                         </div>
                     ))}
                 </div>
@@ -199,7 +252,7 @@ function AddLinkPage() {
                         </form>
                     ))}
                     <div className='border-t flex border-borders py-4 justify-center md:justify-end'>
-                        {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6 hover:bg-hoverpurple'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6' disabled={true}>Save</button> }
+                        {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-28 rounded-lg mx-6 md:px-6 hover:bg-hoverpurple'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6' disabled={true}>Save</button> }
                     </div>
                 </section>
             </section>

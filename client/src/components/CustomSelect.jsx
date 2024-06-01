@@ -11,10 +11,9 @@ const CustomSelect = ({ handleChange, index, form }) => {
 
   return (
     <div className="relative inline-block w-full">
-      <label className='text-xs text-darkgrey mb-1'>Platform</label>
       <div className="relative inline-block w-full mb-3">
         <select
-          className={`appearance-none outline outline-borders rounded-lg px-4 h-12 w-full pr-8 text-darkgrey ${isOpen ? 'rounded-b-none' : ''}`}
+          className={`appearance-none outline outline-borders rounded-lg px-4 h-12 w-full pr-8 text-darkgrey ${isOpen ? '' : ''}`}
           name='title'
           value={form.title || 'github'}
           onChange={(e) => handleChange(index, e)}
@@ -27,6 +26,13 @@ const CustomSelect = ({ handleChange, index, form }) => {
           <option value='Dev.to'>Dev.to</option>
           <option value='Codewars'>Codewars</option>
           <option value='freeCodeCamp'>freeCodeCamp</option>
+          <option value='FrontendMentor'>Frontend Mentor</option>
+          <option value='Twitter'>Twitter</option>
+          <option value='Facebook'>Facebook</option>
+          <option value='Twitch'>Twitch</option>
+          <option value='GitLab'>Git Lab</option>
+          <option value='Hashnode'>Hashnode</option>
+          <option value='StackOverflow'>Stack Overflow</option>
         </select>
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
           <img

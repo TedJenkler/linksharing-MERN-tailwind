@@ -117,7 +117,7 @@ function ProfilePage() {
     <div className='xl:flex xl:w-screen'>
       <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:pt-24 xl:justify-center'>
         <div className='relative w-80 h-[631px] bg-frame bg-no-repeat bg-contain'>
-        <img className='absolute h-[96px] w-[96px] rounded-full top-[63.7px] left-[104.5px] border-2 border-purple' src={user ? user.img : null} />
+        <img className='absolute h-[96px] w-[96px] rounded-full top-[63.7px] left-[104.5px] border-2 border-purple' src={user ? user.img : emptyimg} />
         <p className='absolute text-xs top-[192.5px] left-[48%] transform -translate-x-1/2 -translate-y-1/2'>{user ? user.firstname : null} {user ? user.lastname : null}</p>
         <p className='absolute text-xs top-[217.5px] left-[48%] transform -translate-x-1/2 -translate-y-1/2'>{user ? user.email : null}</p>
         {list ? list.length > 0 && list.slice(0, 5).map((form, index) => (
