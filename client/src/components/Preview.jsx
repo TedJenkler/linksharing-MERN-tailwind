@@ -17,11 +17,13 @@ import hashnode from "../assets/hashnode.png";
 import overflow from "../assets/overflow.png";
 import arrowIcon from "../assets/arrowright.png";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Preview() {
     const dispatch = useDispatch();
     const [list, setList] = useState([]);
     const [user, setUser] = useState(null);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,6 +32,9 @@ function Preview() {
                 setUser({ ...res.payload, img: `data:image/jpeg;base64,${arrayBufferToBase64(res.payload.img.data.data)}` });
             } catch (error) {
                 console.error('Error fetching user:', error);
+                localStorage.removeItem('token');
+                navigate("/")
+
             }
         }
         fetchData();
@@ -42,6 +47,8 @@ function Preview() {
                 setList(res.payload);
             } catch (error) {
                 console.error('Error fetching links:', error);
+                localStorage.removeItem('token');
+                navigate("/")
             }
         };
 
