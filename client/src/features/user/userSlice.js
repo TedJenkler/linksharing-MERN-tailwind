@@ -111,7 +111,10 @@ export const updateUser = createAsyncThunk(
       const token = localStorage.getItem('token');
 
       const formData = new FormData();
-      formData.append('img', userData.img); // Append the file to the FormData object
+
+      if (userData.img) {
+        formData.append('img', userData.img);
+      }
 
       // Append other user data fields to FormData if needed
       formData.append('firstname', userData.firstname);
