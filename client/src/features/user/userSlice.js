@@ -78,9 +78,15 @@ export const loginUser = createAsyncThunk(
         },
         body: JSON.stringify(userData),
       });
+
+      if(response.status === 401) {
+        console.log('Unauthorized: Please check your credentials');
+        throw new Error('Unauthorized: Please check your credentials');
+      }
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to login')
+        throw new Error(errorData.message || 'Failed to login');
       }
 
       const { token } = await response.json();

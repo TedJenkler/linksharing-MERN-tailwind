@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../features/user/userSlice';
 import logo from "../assets/logo.png";
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const error = useSelector((state) => state.user.error)
 
     const [formData, setFormData] = useState({
         email: '',
@@ -65,7 +66,7 @@ function Login() {
                     <p className='text-base text-grey mb-10'>Add your details below to get back into the app</p>
                 </div>
                 <div>
-                    <div className='flex flex-col mb-6'>
+                    <div className='flex flex-col mb-6 relative'>
                         <label className={`text-xs text-darkgrey mb-1 ${!emailV ? 'text-red' : ''}`}>Email address</label>
                         <input
                             className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!emailV ? 'outline outline-red' : ''}`}
@@ -75,19 +76,23 @@ function Login() {
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        {!emailV && <span className="text-red text-xs mt-1">Not valid email</span>}
+                        {!emailV && <span className="text-red text-xs mt-1 xl:hidden xl:absolute">Can't be empty</span>}
+                        {!emailV && <span className="hidden absolute text-red text-xs mt-1 xl:flex xl:right-4 xl:top-8">Can't be empty</span>}
                     </div>
-                    <div className='flex flex-col mb-6'>
-                        <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''}`}>Password</label>
+                    <div className='flex flex-col mb-6 relative'>
+                        <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''} ${error === "Unauthorized: Please check your credentials" ? 'text-red' : ''}`}>Password</label>
                         <input
-                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!passV ? 'outline outline-red' : ''}`}
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] focus:outline-purple ${!passV ? 'outline outline-red' : ''} ${error === "Unauthorized: Please check your credentials" ? 'outline outline-red' : ''}`}
                             placeholder='Enter your password'
                             type="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        {!passV && <span className="text-red text-xs mt-1">Not valid password</span>}
+                        {!passV && <span className="text-red text-xs mt-1 xl:hidden xl:absolute">Can't be empty</span>}
+                        {error === "Unauthorized: Please check your credentials" && <span className="text-red text-xs mt-1 xl:hidden xl:absolute">Password dosen't match</span>}
+                        {!passV && <span className="hidden absolute text-red text-xs mt-1 xl:flex xl:right-4 xl:top-8">Can't be empty</span>}
+                        {error === "Unauthorized: Please check your credentials" && <span className="hidden absolute text-red text-xs mt-1 xl:flex xl:right-4 xl:top-8">Password dosen't match</span>}
                     </div>
                     <button type='submit' className="w-full h-12 bg-purple text-white rounded-lg mb-6 hover:bg-hoverpurple">
                         Login
