@@ -13,17 +13,13 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// Serve static files from the React app's dist directory
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-});
-
 // Allow requests only from https://linksharing-mern-tailwind.onrender.com/
 app.use(cors({
     origin: 'https://linksharing-mern-tailwind.onrender.com/'
 }));
+
+// Serve static files from the React app's dist directory
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
