@@ -4,32 +4,32 @@ export const fetchLinkEmail = createAsyncThunk(
     'links/fetchLinks',
     async (email, thunkAPI) => {
         try {
-            const response = await fetch(`http://localhost:2000/links/getByEmail/${email}`);
-            if(!response) {
+            const response = await fetch(`https://linksharing-mern-tailwind.onrender.com/links/getByEmail/${email}`);
+            if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Failed to fetch links by email');
             }
             const data = await response.json();
-            return data
-        }catch (error) {
+            return data;
+        } catch (error) {
             throw error;
         }
     }
-)
+);
 
 export const fetchLinks = createAsyncThunk(
     'links/fetchLinks',
     async (_, thunkAPI) => {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:2000/links/getAll', {
+        const response = await fetch('https://linksharing-mern-tailwind.onrender.com/links/getAll', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
         if (!response.ok) {
-            if(response.status === 401) {
+            if (response.status === 401) {
                 localStorage.removeItem('token');
-              }
+            }
             const errorData = await response.json();
             throw new Error(errorData.message || 'Failed to fetch links');
         }
@@ -46,7 +46,7 @@ export const addLinks = createAsyncThunk(
         try {
             thunkAPI.dispatch(addLinksStart());
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:2000/links/addLink', {
+            const response = await fetch('https://linksharing-mern-tailwind.onrender.com/links/addLink', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,9 +55,9 @@ export const addLinks = createAsyncThunk(
                 body: JSON.stringify({ links: linkData })
             });
             if (!response.ok) {
-                if(response.status === 401) {
+                if (response.status === 401) {
                     localStorage.removeItem('token');
-                  }
+                }
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Failed to add list');
             }

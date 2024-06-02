@@ -1,11 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getUserByEmail = createAsyncThunk(
     'user/getUserByEmail',
     async (email, thunkAPI) => {
       try {
-        const response = await fetch(`http://localhost:2000/users/getUserByEmail/${email}`);
+        const response = await fetch(`https://linksharing-mern-tailwind.onrender.com/users/getUserByEmail/${email}`);
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || 'Failed to fetch user by email');
@@ -16,13 +15,13 @@ export const getUserByEmail = createAsyncThunk(
         throw error;
       }
     }
-  );
+);
 
 export const getUserByToken = createAsyncThunk(
   'user/getUserByToken',
   async (_, thunkAPI) => {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:2000/users/getUserByToken', {
+    const response = await fetch('https://linksharing-mern-tailwind.onrender.com/users/getUserByToken', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -45,7 +44,7 @@ export const registerUser = createAsyncThunk(
     try {
       thunkAPI.dispatch(registerStart());
 
-      const response = await fetch('http://localhost:2000/users/register', {
+      const response = await fetch('https://linksharing-mern-tailwind.onrender.com/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +70,7 @@ export const loginUser = createAsyncThunk(
     try {
       thunkAPI.dispatch(loginStart());
 
-      const response = await fetch('http://localhost:2000/users/login', {
+      const response = await fetch('https://linksharing-mern-tailwind.onrender.com/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,7 +120,7 @@ export const updateUser = createAsyncThunk(
       formData.append('lastname', userData.lastname);
       formData.append('email', userData.email);
 
-      const response = await fetch('http://localhost:2000/users/profile/update', {
+      const response = await fetch('https://linksharing-mern-tailwind.onrender.com/users/profile/update', {
         method: 'PUT',
         headers: {
           // No need to set Content-Type for FormData, it's set automatically

@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const path = require('path');
 const cors = require('cors');
 
 // Load environment variables
@@ -12,10 +13,17 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// Allow requests from both http://localhost:3000 and http://localhost:3001
+// Serve static files from the React app's dist directory
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+
+// Allow requests only from https://linksharing-mern-tailwind.onrender.com/
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001']
-  }));
+    origin: 'https://linksharing-mern-tailwind.onrender.com/'
+}));
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
