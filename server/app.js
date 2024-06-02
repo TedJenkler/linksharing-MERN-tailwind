@@ -19,7 +19,7 @@ app.use(cors({
 }));
 
 // Serve static files from the React app's build directory
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 // Set up your API routes
 const userRoutes = require('./routes/userRoutes');
@@ -29,7 +29,7 @@ app.use('/links', linkRoutes);
 
 // Serve the index.html file for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
 // Connect to MongoDB
