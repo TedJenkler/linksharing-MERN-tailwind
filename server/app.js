@@ -18,9 +18,21 @@ app.use(cors({
     origin: 'https://linksharing-mern-tailwind.onrender.com/'
 }));
 
-// Serve static files from the React app's dist directory
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
+// Serve static files from the React app's build directory
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
+// Set up your API routes
+const userRoutes = require('./routes/userRoutes');
+const linkRoutes = require('./routes/linkRoutes');
+app.use('/users', userRoutes);
+app.use('/links', linkRoutes);
+
+// Serve the index.html file for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
+
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -30,12 +42,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error('Error connecting to MongoDB:', error);
 });
 
-const userRoutes = require('./routes/userRoutes');
-const linkRoutes = require('./routes/linkRoutes');
-
-app.use('/users', userRoutes);
-app.use('/links', linkRoutes);
-
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
