@@ -246,7 +246,7 @@ function AddLinkPage() {
                             </div>
                             <div className='flex flex-col'>
                                 <label className={`text-xs text-darkgrey mb-1 ${errorField === index && (form.url === '' ? 'text-red' : '')}`}>Link</label>
-                                <input className={`outline outline-borders rounded-lg px-4 h-12 mb-3 ${errorField === index && (form.url === '' ? 'outline-red' : '')}`} type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} />
+                                <input className={`outline outline-borders bg-link bg-no-repeat bg-[center_left_1rem] rounded-lg px-10 h-12 transition-shadow focus:outline-purple focus:shadow-custom mb-3 ${errorField === index && (form.url === '' ? 'outline-red' : '')}`} type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} />
                                 {errorField === index && <span className='text-red text-xs'>This field is required</span>}
                             </div>
                         </form>

@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom': '0 0 32px rgba(0.39, 0.24, 1, 0.25)',
+      },
       colors: {
         darkgrey: "#333333",
         grey: "#737373",
@@ -29,7 +32,8 @@ export default {
       backgroundImage: {
         'iconemail': "url('/src/assets/iconmail.png')",
         'iconpass': "url('/src/assets/iconpassword.png')",
-        'frame': "url('/src/assets/frame.png')"
+        'frame': "url('/src/assets/frame.png')",
+        'link': "url('/src/assets/linkbg.png')"
       },
       fontFamily: {
         sans: ['Instrument Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
@@ -38,3 +42,4 @@ export default {
   },
   plugins: [],
 }
+
