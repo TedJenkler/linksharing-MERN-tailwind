@@ -68,7 +68,7 @@ function ViewUser() {
             </div>
             <div className='md:bg-white md:mx-52 md:rounded-b-3xl md:pb-12 xl:w-[349px] xl:relative xl:bottom-1'>
                 {user ? (
-                    <div className='flex flex-col mb-14 items-center'>
+                    <div className='flex flex-col mb-14 items-center pt-6'>
                         <h1 className='mb-2 text-3xl font-bold text-darkgrey'>{user.firstname} {user.lastname}</h1>
                         <p className='text-base text-grey'>{user.email}</p>
                     </div>
