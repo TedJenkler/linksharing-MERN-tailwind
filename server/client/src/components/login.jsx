@@ -69,7 +69,7 @@ function Login() {
                     <div className='flex flex-col mb-6 relative'>
                         <label className={`text-xs text-darkgrey mb-1 ${!emailV ? 'text-red' : ''}`}>Email address</label>
                         <input
-                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!emailV ? 'outline outline-red' : ''}`}
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1 transition-shadow focus:outline-purple focus:shadow-custom ${!emailV ? 'outline outline-red outline-1' : ''}`}
                             placeholder='e.g alex@email.com'
                             type="email"
                             name="email"
@@ -82,7 +82,7 @@ function Login() {
                     <div className='flex flex-col mb-6 relative'>
                         <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''} ${error === "Unauthorized: Please check your credentials" ? 'text-red' : ''}`}>Password</label>
                         <input
-                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] focus:outline-purple ${!passV ? 'outline outline-red' : ''} ${error === "Unauthorized: Please check your credentials" ? 'outline outline-red' : ''}`}
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] transition-shadow focus:outline-purple focus:shadow-custom ${!passV ? 'outline outline-1 outline-red' : ''} ${error === "Unauthorized: Please check your credentials" ? 'outline outline-1 outline-red' : ''}`}
                             placeholder='Enter your password'
                             type="password"
                             name="password"

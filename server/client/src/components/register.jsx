@@ -71,7 +71,7 @@ function Register() {
                     <div className='flex flex-col mb-6 relative'>
                         <label className={`text-xs text-darkgrey mb-1 ${!emailV ? 'text-red' : ''}`}>Email address</label>
                         <input
-                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1 focus:outline-purple ${!emailV ? 'outline outline-red' : ''}`}
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconemail bg-no-repeat bg-[center_left_1rem] pb-1 transition-shadow focus:outline-purple focus:shadow-custom ${!emailV ? 'outline outline-1 outline-red' : ''}`}
                             placeholder='e.g alex@email.com'
                             type="email"
                             name="email"
@@ -84,7 +84,7 @@ function Register() {
                     <div className='flex flex-col mb-6 relative'>
                         <label className={`text-xs text-darkgrey mb-1 ${!passV ? 'text-red' : ''}`}>Password</label>
                         <input
-                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] focus:outline-purple ${!passV ? 'outline outline-red' : ''}`}
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] transition-shadow focus:outline-purple focus:shadow-custom ${!passV ? 'outline outline-1 outline-red' : ''}`}
                             placeholder='At least 8 characters'
                             type="password"
                             name="password"
@@ -97,7 +97,7 @@ function Register() {
                     <div className='flex flex-col mb-6 relative'>
                         <label className={`text-xs text-darkgrey mb-1 ${!passMatch ? 'text-red' : ''}`}>Confirm Password</label>
                         <input
-                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] focus:outline-purple ${!passMatch ? 'outline outline-red' : ''}`}
+                            className={`h-12 w-full border border-borders rounded-lg px-10 bg-iconpass bg-no-repeat bg-[center_left_1rem] transition-shadow focus:outline-purple focus:shadow-custom ${!passMatch ? 'outline  outline-1 outline-red' : ''}`}
                             placeholder='Confirm your password'
                             type="password"
                             name="confirmPassword"
