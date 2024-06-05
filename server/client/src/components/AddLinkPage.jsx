@@ -99,6 +99,28 @@ function AddLinkPage() {
         return window.btoa(binary);
     };
 
+    const handleDragStart = (e, index) => {
+        e.dataTransfer.setData("index", index);
+    };
+    
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+    
+    const handleDrop = (e, dropIndex) => {
+        const dragIndex = e.dataTransfer.getData("index");
+        const newLinkForm = [...linkForm];
+        const draggedItem = newLinkForm[dragIndex];
+    
+        // Remove the dragged item from its original position
+        newLinkForm.splice(dragIndex, 1);
+    
+        // Insert the dragged item at the drop position
+        newLinkForm.splice(dropIndex, 0, draggedItem);
+    
+        setLinkForm(newLinkForm);
+    };
+
     return (
         <div className='xl:flex xl:w-screen'>
             <div className='hidden absolute xl:flex xl:relative xl:bg-white xl:w-5/12 xl:rounded-xl xl:ml-6 xl:my-6 xl:py-6 xl:pt-24 xl:justify-center'>
@@ -232,24 +254,30 @@ function AddLinkPage() {
                         </div>
                     ) : null}
                     {linkForm.length > 0 && linkForm.map((form, index) => (
-                        <form key={index} className='mx-6 bg-lightgrey p-5 mb-6 rounded-xl'>
-                            <div className='flex justify-between mb-3'>
-                                <div className='flex items-center gap-2'>
-                                    <img src={drag} alt='drag' />
-                                    <h3 className='text-base text-grey font-bold'>Link #{index + 1}</h3>
-                                </div>
-                                <p onClick={() => handleDelete(index)} className='text-base text-grey'>Remove</p>
+                        <div key={index}
+                            className='mx-6 bg-lightgrey p-5 mb-6 rounded-xl'
+                            draggable="true"
+                            onDragStart={(e) => handleDragStart(e, index)}
+                            onDragOver={handleDragOver}
+                            onDrop={(e) => handleDrop(e, index)}
+                        >
+                        <div className='flex justify-between mb-3'>
+                            <div className='flex items-center gap-2'>
+                                <img src={drag} alt='drag' />
+                                <h3 className='text-base text-grey font-bold'>Link #{index + 1}</h3>
                             </div>
-                            <div className='flex flex-col'>
+                            <p onClick={() => handleDelete(index)} className='text-base text-grey'>Remove</p>
+                        </div>
+                        <div className='flex flex-col'>
                             <label className='text-xs text-darkgrey mb-1'>Platform</label>
                             <CustomSelect handleChange={handleChange} index={index} form={form} />
-                            </div>
-                            <div className='flex flex-col'>
-                                <label className={`text-xs text-darkgrey mb-1 ${errorField === index && (form.url === '' ? 'text-red' : '')}`}>Link</label>
-                                <input className={`outline outline-borders bg-link bg-no-repeat bg-[center_left_1rem] rounded-lg px-10 h-12 transition-shadow focus:outline-purple focus:shadow-custom mb-3 ${errorField === index && (form.url === '' ? 'outline-red outline-1' : '')}`} type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} />
-                                {errorField === index && <span className='text-red text-xs'>This field is required</span>}
-                            </div>
-                        </form>
+                        </div>
+                        <div className='flex flex-col'>
+                            <label className={`text-xs text-darkgrey mb-1 ${errorField === index && (form.url === '' ? 'text-red' : '')}`}>Link</label>
+                            <input className={`outline outline-borders bg-link bg-no-repeat bg-[center_left_1rem] rounded-lg px-10 h-12 transition-shadow focus:outline-purple focus:shadow-custom mb-3 ${errorField === index && (form.url === '' ? 'outline-red outline-1' : '')}`} type='text' name='url' value={form.url} onChange={(e) => handleChange(index, e)} />
+                            {errorField === index && <span className='text-red text-xs'>This field is required</span>}
+                        </div>
+                    </div>
                     ))}
                     <div className='border-t flex border-borders py-4 justify-center md:justify-end'>
                         {linkForm.length > 0 ? <button onClick={handleSubmit} className='bg-purple text-white text-base py-2 px-28 rounded-lg mx-6 md:px-6 hover:bg-hoverpurple'>Save</button> : <button onClick={handleSubmit} className='bg-purple/25 text-white text-base py-2 px-32 rounded-lg mx-6 md:px-6' disabled={true}>Save</button> }
