@@ -1,0 +1,11 @@
+@mixin btn() {
+    background: $purple;
+    width: 100%;
+    height: 2.875rem;
+    border-radius: 8px;
+    color: white;
+    &:hover {
+        background: $purplehover;
+    }
+    @include BodyM();
+}

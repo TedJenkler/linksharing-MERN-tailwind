@@ -1,0 +1,16 @@
+$breakpoint-md: 768px;
+$breakpoint-xxl: 1440px;
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == 'md' {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == 'xxl' {
+    @media (min-width: $breakpoint-xxl) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found.";
+  }
+}

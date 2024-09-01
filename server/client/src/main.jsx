@@ -5,10 +5,11 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Route, Navigate } from 'react-router-dom';
 import Login from './components/login.jsx';
-import Register from './components/register.jsx';
+import Register from './components/Register.jsx';
 import App from './components/App.jsx';
 import Preview from './components/Preview.jsx';
 import ViewUser from './components/ViewUser.jsx';
+import './assets/scss/main.scss';
 
 // Check if the user has a token
 const isAuthenticated = () => {
