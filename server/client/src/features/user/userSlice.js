@@ -44,7 +44,7 @@ export const registerUser = createAsyncThunk(
     try {
       thunkAPI.dispatch(registerStart());
 
-      const response = await fetch('https://linksharing-mern-tailwind.onrender.com/users/register', {
+      const response = await fetch('http://localhost:2000/linksharing/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
