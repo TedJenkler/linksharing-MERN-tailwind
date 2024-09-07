@@ -1,8 +1,14 @@
+$breakpoint-sm: 600px;
 $breakpoint-md: 768px;
 $breakpoint-xxl: 1440px;
 
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == 'md' {
+  @if $breakpoint == 'sm' {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  }
+  @else if $breakpoint == 'md' {
     @media (min-width: $breakpoint-md) {
       @content;
     }

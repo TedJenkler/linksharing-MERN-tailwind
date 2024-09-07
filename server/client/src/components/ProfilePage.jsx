@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../features/user/userSlice';
 import emptyimg from "../assets/emptyimg.png";
@@ -17,7 +17,6 @@ import gitlab from "../assets/gitlab.png"
 import hashnode from "../assets/hashnode.png"
 import overflow from "../assets/overflow.png"
 import arrowIcon from "../assets/arrowright.png";
-import { getUserByToken } from '../features/user/userSlice';
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -98,7 +97,7 @@ function ProfilePage() {
     }));
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchData = async () => {
         try {
             const res = await dispatch(getUserByToken());
@@ -108,8 +107,8 @@ function ProfilePage() {
         }
     }
     fetchData()
-},[dispatch])
-
+},[dispatch]) */
+/*
    // Function to convert ArrayBuffer to base64
    const arrayBufferToBase64 = (buffer) => {
     let binary = '';
@@ -276,3 +275,5 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+*/

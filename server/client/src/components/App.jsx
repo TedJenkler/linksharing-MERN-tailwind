@@ -1,7 +1,5 @@
-import React from 'react'
+/*import React from 'react'
 import Nav from './Nav'
-import ProfilePage from './ProfilePage'
-import AddLinkPage from './AddLinkPage'
 import { useState } from 'react'
 
 function App() {
@@ -15,4 +13,4 @@ function App() {
   )
 }
 
-export default App
+export default App  */

@@ -6,6 +6,13 @@ import Register from './Register';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import userSlice from '../features/user/userSlice';
 import { registerUser } from '../features/user/userSlice';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+}));
 
 jest.mock('react-redux', () => {
     const actualReactRedux = jest.requireActual('react-redux');
@@ -30,9 +37,11 @@ const store = configureStore({
 
 test('See if register renders', () => {
   render(
-    <Provider store={store}>
-      <Register />
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <Register />
+      </Provider>
+    </Router>
   );
 
   const emailInput = screen.getByPlaceholderText('e.g. alex@email.com');

@@ -5,61 +5,46 @@ import logo from "../assets/logo.png";
 import iconmail from '../assets/iconmail.png';
 import iconpassword from '../assets/iconpassword.png';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../features/user/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../features/user/userSlice';
 
 const validationSchema = Yup.object({
   email: Yup.string()
     .email('Invalid email.')
-    .required('Email required.'),
+    .required('Required.'),
   
   password: Yup.string()
     .required('Required.')
-    .min(8, 'Min 8 characters.')
-    .matches(/(?=.*[A-Z])/, '1 uppercase letter.')
-    .matches(/(?=.*\d)/, '1 number.')
-    .matches(/(?=.*[@#])/, '1 special character.'),
-  
-  confirmPassword: Yup.string()
-    .required('Required.')
-    .oneOf([Yup.ref('password')], 'Passwords must match.'),
 });
 
-const Register = () => {
+const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
     <>
       <img className='logo' src={logo} alt='Company Logo' />
       <Formik
-        initialValues={{ email: '', password: '', confirmPassword: '' }}
+        initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={async (values, { setFieldError, resetForm }) => {
-          const resultAction = await dispatch(registerUser({
-            firstName: "",
-            lastName: "",
-            email: values.email,
-            password: values.password,
-          }));
+          const resultAction = await dispatch(loginUser({ email: values.email, password: values.password }));
 
-          if (registerUser.rejected.match(resultAction)) {
-            if (resultAction.payload === 'Email already taken') {
-              setFieldError('email', 'Email already taken');
+          if (loginUser.rejected.match(resultAction)) {
+            if (resultAction.payload === 'Account not found') {
+              setFieldError('email', 'Account not found');
+            } else if (resultAction.payload === 'Wrong Password') {
+              setFieldError('password', 'Wrong Password');
             }
           } else {
             resetForm();
-            navigate('/login');
           }
         }}
       >
         {({ isSubmitting, touched, errors }) => (
-          <Form className='register'>
+          <Form className='login'>
             <div className='heading'>
-              <h1>Create account</h1>
-              <p>Let’s get you started sharing your links!</p>
+              <h1>Login to your account</h1>
+              <p>Welcome back! Please enter your details.</p>
             </div>
-
             <div className='inputs'>
               <label htmlFor="email">Email address</label>
               <Field
@@ -84,9 +69,8 @@ const Register = () => {
               />
               <img src={iconmail} alt='mail icon' />
             </div>
-
             <div className='inputs'>
-              <label htmlFor="password">Create password</label>
+              <label htmlFor="password">Password</label>
               <Field
                 data-testid="password-input"
                 type="password"
@@ -94,9 +78,9 @@ const Register = () => {
                 id="password"
                 aria-required="true"
                 aria-describedby="password-error"
-                placeholder={touched.password && errors.password ? '' : 'At least 8 characters'}
+                placeholder={touched.password && errors.password ? '' : 'Enter your password'}
                 className={touched.password && errors.password ? 'input-error' : ''}
-                autoComplete="new-password"
+                autoComplete="current-password"
               />
               <ErrorMessage
                 data-testid="password-error"
@@ -109,39 +93,12 @@ const Register = () => {
               />
               <img src={iconpassword} alt='password icon' />
             </div>
-
-            <div className='inputs'>
-              <label htmlFor="confirmPassword">Confirm password</label>
-              <Field
-                data-testid="confirm-input"
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                aria-required="true"
-                aria-describedby="confirmPassword-error"
-                placeholder={touched.confirmPassword && errors.confirmPassword ? '' : 'Must match password'}
-                className={touched.confirmPassword && errors.confirmPassword ? 'input-error' : ''}
-                autoComplete="new-password"
-              />
-              <ErrorMessage
-                data-testid="confirm-error"
-                className='error-message'
-                name="confirmPassword"
-                component="div"
-                id="confirmPassword-error"
-                role="alert"
-                aria-live="assertive"
-              />
-              <img src={iconpassword} alt='password icon' />
-            </div>
-
-            <button data-testid="register" type="submit" disabled={isSubmitting}>
-              Create new account
+            <button data-testid="login" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Logging in...' : 'Login'}
             </button>
-
-            <div className='to-login'>
-              <p>Already have an account?</p>
-              <a href="/login">Login</a>
+            <div className='to-register'>
+              <p>Don’t have an account?</p>
+              <a href="/register">Create account</a>
             </div>
           </Form>
         )}
@@ -150,4 +107,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
