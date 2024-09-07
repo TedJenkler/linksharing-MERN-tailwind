@@ -34,8 +34,7 @@ const Register = () => {
         initialValues={{ email: '', password: '', confirmPassword: '' }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log(values);
-          dispatch(registerUser({ userData: { firstname: "", lastname: "", email: values.email, password: values.password }}))
+          dispatch(registerUser({ firstName: "", lastName: "", email: values.email, password: values.password }))
         }}
       >
         {({ isSubmitting, touched, errors }) => (
@@ -47,6 +46,7 @@ const Register = () => {
             <div className='inputs'>
               <label htmlFor="email">Email address</label>
               <Field
+                data-testid="email-input"
                 type="email"
                 name="email"
                 id="email"
@@ -56,6 +56,7 @@ const Register = () => {
                 className={touched.email && errors.email ? 'input-error' : ''}
               />
               <ErrorMessage
+                data-testid="email-error"
                 className='error-message'
                 name="email"
                 component="div"
@@ -68,6 +69,7 @@ const Register = () => {
             <div className='inputs'>
               <label htmlFor="password">Create password</label>
               <Field
+                data-testid="password-input"
                 type="password"
                 name="password"
                 id="password"
@@ -77,6 +79,7 @@ const Register = () => {
                 className={touched.password && errors.password ? 'input-error' : ''}
               />
               <ErrorMessage
+                data-testid="password-error"
                 className='error-message'
                 name="password"
                 component="div"
@@ -89,15 +92,17 @@ const Register = () => {
             <div className='inputs'>
               <label htmlFor="confirmPassword">Confirm password</label>
               <Field
+                data-testid="confirm-input"
                 type="password"
                 name="confirmPassword"
                 id="confirmPassword"
                 aria-required="true"
                 aria-describedby="confirmPassword-error"
-                placeholder="At least 8 characters"
+                placeholder="Must match password"
                 className={touched.confirmPassword && errors.confirmPassword ? 'input-error' : ''}
               />
               <ErrorMessage
+                data-testid="confirm-error"
                 className='error-message'
                 name="confirmPassword"
                 component="div"
@@ -108,7 +113,7 @@ const Register = () => {
               <img src={iconpassword} alt='password icon' />
             </div>
             <p className="info">Password must contain at least 8 characters</p>
-            <button type="submit" disabled={isSubmitting}>
+            <button data-testid="register" type="submit" disabled={isSubmitting}>
               Create new account
             </button>
             <div className='to-login'>
