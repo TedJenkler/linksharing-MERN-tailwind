@@ -1,0 +1,142 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 4.625rem;
+    padding: 1rem 1.5rem;
+
+    .logo-img {
+        margin: 0;
+        width: 1.6667rem;
+        height: 1.6667rem;
+    }
+
+    nav {
+        display: flex;
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6875rem 1.6875rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            &:hover > p {
+                color: $purple;
+            }
+
+            &:hover > svg {
+                fill: $purple;
+            }
+
+            &.active {
+                background: $lightpurple;
+
+                p {
+                    color: $purple;
+                    display: flex;
+                }
+
+                svg {
+                    fill: $purple;
+                }
+            }
+        }
+
+        p {
+            display: none;
+            position: absolute;
+        }
+
+        .link-icon, .profile-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: $grey;
+        }
+    }
+
+    .preview {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 0.6875rem 1.6875rem;
+        border: 0.0625rem solid $purple;
+        border-radius: 0.5rem;
+
+        &:hover {
+            background: $lightpurple;
+        }
+
+        .preview-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        p {
+            display: none;
+            position: absolute;
+        }
+    }
+}
+
+@include respond-to(md) {
+    .nav {
+        margin: 1.5rem;
+        background: white;
+        width: calc(100% - 3rem);
+        border-radius: 0.75rem;
+
+        .logo-img {
+            width: 9.125rem;
+            height: 2rem;
+        }
+
+        nav {
+            button {
+                gap: 0.5rem;
+            }
+
+            p {
+                display: flex;
+                position: relative;
+                white-space: nowrap;
+                color: $grey;
+                @include BodyM();
+            }
+
+            button.active {
+                background: $lightpurple;
+
+                p {
+                    color: $purple;
+                    display: flex;
+                }
+
+                svg {
+                    fill: $purple;
+                }
+            }
+        }
+
+        .preview {
+            padding: 0.6875rem 1.6875rem;
+            border: 0.0625rem solid $purple;
+            border-radius: 0.5rem;
+
+            .preview-icon {
+                display: none;
+                position: absolute;
+            }
+
+            p {
+                display: flex;
+                position: relative;
+                color: $purple;
+                @include BodyM();
+            }
+        }
+    }
+}
