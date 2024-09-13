@@ -1,0 +1,57 @@
+.img-uploader {
+  background: $lightgrey;
+  margin: 0 1.5rem 1.5rem 1.5rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+
+  &__title {
+    @include BodyM();
+    color: $grey;
+    margin-bottom: 1rem;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__image {
+    width: 12.0625rem;
+    height: 12.0625rem;
+    cursor: pointer;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border-radius: 0.75rem;
+  }
+
+  &__info {
+    @include BodyS();
+    color: $grey;
+  }
+}
+
+@include respond-to(md) {
+  .img-uploader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1.5rem;
+    
+    &__title {
+      width: 15rem;
+      margin: 0;
+    }
+
+    &__label {
+      width: 12.0625rem;
+      margin: 0;
+    }
+
+    &__image {
+      margin: 0;
+    }
+
+    &__info {
+      width: 7.9375rem;
+    }
+  }
+}

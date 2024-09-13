@@ -1,0 +1,122 @@
+.profilepage {
+    margin: 1rem;
+    background: white;
+    padding-top: 1.5rem;
+    border-radius: 0.75rem;
+    
+    header {
+        margin: 0 2.5rem;
+        margin-bottom: 2.5rem;
+        
+        h1 {
+            font-size: 2rem;
+            line-height: 1.5;
+            color: $darkgrey;
+            margin: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        p {
+            @include BodyM();
+        }
+    }
+    
+    section {
+        margin: 0 2.5rem 1.5rem 2.5rem;
+        
+        .inputs-container {
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            background: $lightgrey;
+            margin-bottom: 9.625rem;
+            
+            .inputs {
+                display: flex;
+                flex-direction: column;
+                
+                label {
+                    @include BodyS();
+                    color: $darkgrey;
+                    margin-bottom: 0.25rem;
+                }
+                
+                input {
+                    height: 3rem;
+                    width: 100%;
+                    border: 0.0625rem solid $borders;
+                    border-radius: 0.5rem;
+                    margin-bottom: 0.75rem;
+                    padding: 0.75rem 1rem;
+                    font-size: 1rem;
+                    color: $darkgrey;
+                }
+            }
+        }
+        
+        .button-container {
+            border-top: 0.0625rem solid $borders;
+            width: 100%;
+            padding: 1rem 2.5rem;
+            
+            button {
+                padding: 0.6875rem 0;
+                background: $purple;
+                color: white;
+                width: 5.1875rem;
+                height: 2.875rem;
+                border-radius: 0.5rem;
+                @include BodyM();
+            }
+        }
+    }
+}
+
+@include respond-to(md) {
+    .profilepage {
+        padding-top: 2.5rem;
+        header {
+            margin: 0 2.5rem;
+            margin-bottom: 2.5rem;
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        section {
+            margin: 0 2.5rem 1.5rem 2.5rem;
+            .inputs-container {
+                margin-bottom: 9.625rem;
+                .inputs {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    label {
+                        display: flex;
+                        align-self: center;
+                        font-size: 1rem;
+                        margin: 0;
+                    }
+                    input {
+                        width: 50%;
+                    }
+                }
+            }
+            .button-container {
+                display: flex;
+                justify-content: end;
+                padding: 1rem 2.5rem;
+                button {
+                    width: 5.1875rem;
+                    height: 2.875rem;
+                }
+            }
+        }
+    }
+}
+
+@include respond-to(xxl) {
+    .profilepage {
+        width: 56.1%;
+        margin-top: 0;
+    }
+}

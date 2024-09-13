@@ -1,0 +1,23 @@
+.display-preview {
+    display: none;
+    position: absolute;    
+}
+
+@include respond-to(xxl) {
+    .display-preview {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        background: white;
+        width: 38.9%;
+        min-height: 100%;
+        margin: 0 0 1rem 1.5rem;
+        border-radius: 0.75rem;
+        
+        img {
+            margin: 6.34375rem 0;
+            width: 19.1875rem;
+            height: 39.4375rem;
+        }  
+    }
+}
