@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FieldArray, ErrorMessage, useFormikContext } from 'formik';
 import upload from '../assets/images/upload.svg';
+import changeimg from '../assets/images/changeimg.svg';
 
 const ImageUploader = () => {
   const { values, setFieldValue } = useFormikContext();
@@ -43,18 +44,20 @@ const ImageUploader = () => {
     <FieldArray name="images">
       {() => (
         <section className="img-uploader" aria-labelledby="profilePictureTitle">
-          <h2 id="profilePictureTitle" className="img-uploader__title">Profile Picture</h2>
+          <h2 id="profilePictureTitle">Profile Picture</h2>
           
-          <label htmlFor="imageUpload" className="img-uploader__label" aria-live="polite">
+          <label htmlFor="imageUpload" className="label" aria-live="polite">
+            <img className={imagePreview ? "changeimghover" : "changeimg"} src={changeimg} alt="Change image" />
             <img 
               src={imagePreview || upload} 
               alt={imagePreview ? "Preview of uploaded image" : "Click to upload an image"} 
               onClick={() => document.getElementById('imageUpload').click()}
-              className="img-uploader__image"
+              className="image-preview"
               role="button"
               tabIndex="0"
               aria-label="Click to upload a new profile picture"
             />
+            <div className="overlay"></div>
           </label>
           
           <input
@@ -62,13 +65,13 @@ const ImageUploader = () => {
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="img-uploader__input"
+            className="input-file"
             aria-describedby="imageUploadHelp"
           />
           
           <ErrorMessage name="images" component="div" role="alert" />
 
-          <p className="img-uploader__info" id="imageUploadHelp">
+          <p className="info-text" id="imageUploadHelp">
             Image must be below 1024x1024px. Use PNG or JPG format.
           </p>
         </section>

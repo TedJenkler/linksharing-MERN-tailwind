@@ -1,20 +1,21 @@
 .img-uploader {
+  position: relative;
   background: $lightgrey;
   margin: 0 1.5rem 1.5rem 1.5rem;
   padding: 1.25rem;
   border-radius: 0.75rem;
 
-  &__title {
+  h2 {
     @include BodyM();
     color: $grey;
     margin-bottom: 1rem;
   }
 
-  &__input {
+  .input-file {
     display: none;
   }
 
-  &__image {
+  .image-preview {
     width: 12.0625rem;
     height: 12.0625rem;
     cursor: pointer;
@@ -23,34 +24,71 @@
     border-radius: 0.75rem;
   }
 
-  &__info {
+  .info-text {
     @include BodyS();
     color: $grey;
   }
-}
 
-@include respond-to(md) {
-  .img-uploader {
+  .label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.05);
+        z-index: 40;
+      }
+      .changeimghover {
+        display: flex;
+        position: absolute;
+        z-index: 50;
+        width: 6rem;
+        height: 4.5rem;
+      }
+    }
+  }
+
+  .changeimghover {
+    display: none;
+    position: absolute;
+    z-index: 50;
+    width: 6rem;
+    height: 4.5rem;
+  }
+
+  .changeimg {
+    z-index: 50;
+    display: none;
+  }
+
+  @include respond-to(md) {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 1.5rem;
-    
-    &__title {
+
+    h2 {
       width: 15rem;
       margin: 0;
     }
 
-    &__label {
+    .label {
       width: 12.0625rem;
       margin: 0;
     }
 
-    &__image {
+    .image-preview {
       margin: 0;
     }
 
-    &__info {
+    .info-text {
       width: 7.9375rem;
     }
   }

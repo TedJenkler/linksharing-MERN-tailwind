@@ -26,7 +26,7 @@ function ProfilePageContainer() {
           console.log(values);
         }}
       >
-        {() => (
+        {({ touched, errors }) => (
           <Form>
             <ImgUploader />
 
@@ -39,12 +39,15 @@ function ProfilePageContainer() {
                     name="firstName"
                     aria-required="true"
                     aria-describedby="firstNameError"
+                    placeholder="e.g. John"
+                    className={touched.firstName && errors.firstName ? 'input-error' : ''}
                   />
                   <ErrorMessage
                     name="firstName"
                     component="div"
                     role="alert"
                     id="firstNameError"
+                    className="error"
                   />
                 </div>
 
@@ -55,12 +58,15 @@ function ProfilePageContainer() {
                     name="lastName"
                     aria-required="true"
                     aria-describedby="lastNameError"
+                    placeholder="e.g. Appleseed"
+                    className={touched.lastName && errors.lastName ? 'input-error' : ''}
                   />
                   <ErrorMessage
                     name="lastName"
                     component="div"
                     role="alert"
                     id="lastNameError"
+                    className="error"
                   />
                 </div>
 
@@ -71,12 +77,15 @@ function ProfilePageContainer() {
                     name="email"
                     type="email"
                     aria-describedby="emailError"
+                    placeholder="e.g. email@example.com"
+                    className={touched.email && errors.email ? 'input-error' : ''}
                   />
                   <ErrorMessage
                     name="email"
                     component="div"
                     role="alert"
                     id="emailError"
+                    className="error"
                   />
                 </div>
               </div>
