@@ -2,17 +2,18 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import ImgUploader from './ImgUploader';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../features/user/userSlice';
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required('Can’t be empty'),
   lastName: Yup.string().required('Can’t be empty'),
-  email: Yup.string().email('Not a valid email').required('Can’t be empty'),
-  images: Yup.array()
-    .of(Yup.mixed().required('Required'))
-    .min(1, 'At least one image is required')
+  email: Yup.string().email('Not a valid email'),
 });
 
 function ProfilePageContainer() {
+  const dispatch = useDispatch();
+
   return (
     <main className='profilepage'>
       <header>
@@ -20,10 +21,16 @@ function ProfilePageContainer() {
         <p>Add your details to create a personal touch to your profile.</p>
       </header>
       <Formik
-        initialValues={{ firstName: '', lastName: '', email: '', images: [] }}
+        initialValues={{ firstName: '', lastName: '', email: '' }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log(values);
+ 
+          const { ...userData } = values;
+          
+          dispatch(updateUser({ 
+            ...userData, 
+            currentEmail: "tedjenkler@gmail.com"
+          }));
         }}
       >
         {({ touched, errors }) => (

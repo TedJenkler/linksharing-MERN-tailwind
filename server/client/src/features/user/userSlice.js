@@ -8,11 +8,10 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post('http://localhost:2000/linksharing/users/login', userData);
       return response.data;
     } catch (error) {
-      if(error.response && error.response.status === 404) {
-        return rejectWithValue('Account not found')
-      }
-      else if(error.response && error.response.status === 401) {
-        return rejectWithValue('Wrong Password')
+      if (error.response && error.response.status === 404) {
+        return rejectWithValue('Account not found');
+      } else if (error.response && error.response.status === 401) {
+        return rejectWithValue('Wrong Password');
       }
       return rejectWithValue(error.message);
     }
@@ -23,10 +22,10 @@ export const registerUser = createAsyncThunk(
   'user/register',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:2000/linksharing/users/register',  userData);
+      const response = await axios.post('http://localhost:2000/linksharing/users/register', userData);
       return response.data;
     } catch (error) {
-      if(error.response && error.response.status === 409) {
+      if (error.response && error.response.status === 409) {
         return rejectWithValue('Email already taken');
       }
       return rejectWithValue(error.response?.data?.message || 'Something went wrong');
@@ -34,13 +33,39 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const updateUser = createAsyncThunk(
+  'user/update',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axios.put('http://localhost:2000/linksharing/users/update', userData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Unknown error occurred');
+    }
+  }
+);
+
+export const updateUserImage = createAsyncThunk(
+  'user/img',
+  async ({ url, currentEmail }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put('http://localhost:2000/linksharing/users/img', { url, currentEmail });
+      return response.data;
+    } catch (error) {
+      console.error('Error occurred:', error);
+      return rejectWithValue(error.response?.data?.message || 'Unknown error occurred');
+    }
+  }
+);
+
 const initialState = {
+  userData: {},
   token: null,
   loading: false,
   error: null,
 };
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
@@ -66,6 +91,30 @@ export const userSlice = createSlice({
         state.loading = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userData = { ...state.userData, ...action.payload.user}
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUserImage.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserImage.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userData = { ...state.userData, img: action.payload.img };
+    })
+      .addCase(updateUserImage.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
