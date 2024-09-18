@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FieldArray, ErrorMessage, useFormikContext } from 'formik';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase-config';
 import upload from '../assets/images/upload.svg';
 import changeimg from '../assets/images/changeimg.svg';
 
@@ -18,25 +20,40 @@ const ImageUploader = () => {
   useEffect(() => {
     if (values.images && values.images.length > 0) {
       const firstImage = values.images[0];
-      const preview = URL.createObjectURL(firstImage);
-      setImagePreview(preview);
+      if (firstImage instanceof File) {
+        const preview = URL.createObjectURL(firstImage);
+        setImagePreview(preview);
 
-      return () => {
-        URL.revokeObjectURL(preview);
-      };
+        return () => {
+          URL.revokeObjectURL(preview);
+        };
+      } else {
+        setImagePreview(null);
+      }
     } else {
       setImagePreview(null);
     }
   }, [values.images]);
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const files = Array.from(event.target.files);
     if (files.length > 0) {
       const newFile = files[0];
       const preview = URL.createObjectURL(newFile);
 
-      setFieldValue('images', [newFile]);
-      setImagePreview(preview);
+      const storageRef = ref(storage, `images/${newFile.name}`);
+
+      try {
+        await uploadBytes(storageRef, newFile);
+
+        const downloadURL = await getDownloadURL(storageRef);
+
+        setFieldValue('images', [newFile]);
+        setImagePreview(preview);
+
+      } catch (error) {
+        console.error('Error uploading file to Firebase Storage:', error);
+      }
     }
   };
 
