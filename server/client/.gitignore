@@ -35,3 +35,7 @@ thumbs.db
 *.cache
 *.bak
 *.lock
+
+# Coverage reports
+coverage/
+git
