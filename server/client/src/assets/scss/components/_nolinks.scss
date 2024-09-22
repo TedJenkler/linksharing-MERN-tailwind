@@ -1,0 +1,44 @@
+.no-links {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: $lightgrey;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 1.8rem 0.78rem;
+    text-align: center;
+
+    img {
+        width: 4.875rem;
+        height: 3.125rem;
+        margin-bottom: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        line-height: 1.5;
+        color: $darkgrey;
+        margin-bottom: 1.5rem;
+    }
+
+    p {
+        @include BodyM();
+        color: $grey;
+    }
+}
+
+@include respond-to(md) {
+    .no-links {
+        padding: 5.15625rem 4.78125rem;
+        margin-bottom: 2.5rem;
+
+        img {
+            width: 15.59375rem;
+            height: 10rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+    }
+}

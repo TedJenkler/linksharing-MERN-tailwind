@@ -14,14 +14,8 @@ import { ReactComponent as GitLabIcon } from '../assets/images/icons/gitlab.svg'
 import { ReactComponent as HashnodeIcon } from '../assets/images/icons/hashnode.svg';
 import { ReactComponent as StackOverflowIcon } from '../assets/images/icons/stackoverflow.svg';
 
-const CustomDropdown = ({ ariaLabel }) => {
+const CustomDropdown = ({ ariaLabel, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState({
-    value: 'github',
-    label: 'GitHub',
-    icon: <GithubIcon />,
-  });
-
   const dropdownRef = useRef(null);
 
   const options = [
@@ -40,10 +34,12 @@ const CustomDropdown = ({ ariaLabel }) => {
     { value: 'stackoverflow', label: 'StackOverflow', icon: <StackOverflowIcon /> },
   ];
 
+  const selected = options.find(option => option.value === value) || options[0];
+
   const toggleDropdown = () => setIsOpen(prev => !prev);
 
   const handleSelect = (option) => {
-    setSelected(option);
+    onChange(option);
     setIsOpen(false);
   };
 
